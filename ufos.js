@@ -20,7 +20,11 @@ function UFOs(container,data_url){
 		addMouseHandler(renderer.domElement);
 		render();
 	}
-
+	function resize(){
+		WIDTH  = window.innerWidth;
+		HEIGHT = window.innerHeight
+		renderer.setSize(WIDTH, HEIGHT);
+	}
 	function initCamera() {
 		camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT, 1, 10000);
 		camera.position.set(0,-500,500);
@@ -49,27 +53,34 @@ function UFOs(container,data_url){
 		scene.add(cube);
 	}
 	var ufos = [];
+	var counter = 0;
 	function addUFO(x,y){
 
       var geometry = new THREE.SphereGeometry(25,50,50);
       var material = new THREE.MeshBasicMaterial({
 				color: 0xff0000
 			});
-
+			counter++;
       var ufo = new THREE.Mesh(geometry,material);
-
+			ufo.name = counter.toString();
 			cube.add(ufo);
 		  ufo.position.set(-928/2 +x,592/2 -y,50);
 			ufos.push(ufo);
-    }
+	}
+	function addUFOPercent(x,y){
+			addUFO(x*MAXWIDTH, y*MAXHEIGHT);
+	}
+	function clearUFOs()
+	{
+			ufos.forEach(function(ufo){
+				scene.remove(ufo.name);
+			});
+	}
 
 	//END INITIALIZATION
 
 	function render(){
                 renderer.render(scene, camera);
-								ufos.forEach(function(ufo){
-										ufo.position.x+=1;
-								});
                 requestAnimationFrame(render);
 	}
 
@@ -77,9 +88,9 @@ function UFOs(container,data_url){
 
 	init(container);
 	this.addUFO = addUFO;
-
-
-
+	this.clear = clearUFOs;
+	this.resize = resize;
+	this.addUFOPercent = addUFOPercent;
 
 
 	var mouseDown = false,mouseX,mouseY;

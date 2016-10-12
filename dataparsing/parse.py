@@ -11,14 +11,13 @@ for line in open("../data/ufos.tsv"):
 
 to_print = []
 
-for spot in all_spottings:
+for spot in all_spottings[:100]:
     try:
         location = geolocator.geocode(spot[1])
     except:
         continue
     if location is not None:
-        to_print.append([spot[0],location.latitude,location.longitude])
+        to_print.append([spot[0],spot[1],location.latitude,location.longitude])
 
 to_print.sort(key=lambda x: x[0])
-
 print(json.dumps(to_print))
