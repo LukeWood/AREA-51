@@ -1,0 +1,131 @@
+"use strict";
+
+function UFOs(container,data_url){
+
+	//scene elements, I wouldn't mess with these if you are trying to work with this
+	var scene, camera, renderer, cube;
+	//Mess with these if you don't want a full screen visualization
+	var WIDTH  = window.innerWidth;
+	var HEIGHT = window.innerHeight;
+
+	var MAXWIDTH = 928, MAXHEIGHT = 592;
+
+	//SECTION INITIALIZATION
+	function init(container) {
+		scene = new THREE.Scene();
+		initCamera();
+		initRenderer();
+		initCube();
+		container.body.appendChild(renderer.domElement);
+		addMouseHandler(renderer.domElement);
+		render();
+	}
+
+	function initCamera() {
+		camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT, 1, 10000);
+		camera.position.set(0,-500,500);
+		camera.lookAt(scene.position);
+	}
+
+
+	function initRenderer() {
+		renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.setSize(WIDTH, HEIGHT);
+	}
+
+	function initCube() {
+
+		var loader = new THREE.TextureLoader();
+    var texture = loader.load("usmap.gif");
+
+		var material = new THREE.MeshPhongMaterial({map:texture});
+		material.bumpMap =texture;
+
+		material.bumpScale = 22;
+		cube = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
+		var light = new THREE.DirectionalLight( 0xffffff );
+		light.position.set( 1, 1, 1).normalize();
+		scene.add(light);
+		scene.add(cube);
+	}
+	var ufos = [];
+	function addUFO(x,y){
+
+      var geometry = new THREE.SphereGeometry(25,50,50);
+      var material = new THREE.MeshBasicMaterial({
+				color: 0xff0000
+			});
+
+      var ufo = new THREE.Mesh(geometry,material);
+
+			cube.add(ufo);
+		  ufo.position.set(-928/2 +x,592/2 -y,50);
+			ufos.push(ufo);
+    }
+
+	//END INITIALIZATION
+
+	function render(){
+                renderer.render(scene, camera);
+								ufos.forEach(function(ufo){
+										ufo.position.x+=1;
+								});
+                requestAnimationFrame(render);
+	}
+
+	//Function Calls
+
+	init(container);
+	this.addUFO = addUFO;
+
+
+
+
+
+	var mouseDown = false,mouseX,mouseY;
+	// kept all of these at the end so they're out of the way.
+	function onMouseMove(e) {
+
+        e.preventDefault();
+
+        var deltaX = e.clientX - mouseX,
+            deltaY = e.clientY - mouseY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+
+        if (mouseDown) {
+			rotateScene(deltaX,deltaY);
+			moveScene(deltaX, deltaY);
+        }
+    }
+    function onMouseUp(evt) {
+        evt.preventDefault();
+
+        mouseDown = false;
+    }
+	function onMouseDown(evt){
+		evt.preventDefault();
+		mouseDown = true;
+	}
+
+    function addMouseHandler(canvas) {
+    canvas.addEventListener('mousemove', function (e) {
+        onMouseMove(e);
+    }, false);
+    canvas.addEventListener('mousedown', function (e) {
+        onMouseDown(e);
+    }, false);
+    canvas.addEventListener('mouseup', function (e) {
+        onMouseUp(e);
+    }, false);
+}
+	function rotateScene(deltaX,deltaY){
+		cube.rotation.z -= deltaX/100;
+	}
+    function moveScene(deltaX, deltaY) {
+					camera.position.z += deltaY;
+					camera.rotation.x-=deltaY/360;
+
+	}
+}
