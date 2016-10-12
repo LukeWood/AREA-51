@@ -11,11 +11,13 @@ $.getJSON("ufos.json",function(data){
       year = selector.options[year].value;
 
       var data = years[year];
-      console.log(data);
       if(data != undefined){
         var x = data[0];
         var y=  data[1];
-        map.addUFOPercent((x+124.3)/(24.8+124.3),(y+65.9)/(48.5+65.9));
+        x = (x+124.3)/(48.5+124.3);
+        y = (y+85)/(85+24.8);
+        console.log(x,y);
+        map.addUFOPercent(x,y);
       }
   });
     data.forEach(function(ufo){

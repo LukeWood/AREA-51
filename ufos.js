@@ -70,6 +70,7 @@ function UFOs(container,data_url){
 	function addUFOPercent(x,y){
 			addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
+
 	function clearUFOs()
 	{
 			ufos.forEach(function(ufo){
