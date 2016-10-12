@@ -1,4 +1,5 @@
 from geopy.geocoders import Nominatim
+import json
 
 geolocator = Nominatim()
 
@@ -6,7 +7,7 @@ all_spottings = []
 
 for line in open("../data/ufos.tsv"):
     split = line.split('\t')
-    all_spottings.append(split[1:3])
+    all_spottings.append([split[0],split[2]])
 
 to_print = []
 
@@ -16,8 +17,8 @@ for spot in all_spottings:
     except:
         continue
     if location is not None:
-        to_print.append([location.latitude,location.longitude])
-    else:
-        print(spot[1])
+        to_print.append([spot[0],location.latitude,location.longitude])
 
-print(to_print)
+to_print.sort(key=lambda x: x[0])
+
+print(json.dumps(to_print))
