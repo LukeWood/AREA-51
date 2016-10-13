@@ -9,7 +9,7 @@ function UFOs(container,data_url){
 	var HEIGHT = window.innerHeight;
 
 	var MAXWIDTH = 928, MAXHEIGHT = 592;
-
+	var jsonloader = new THREE.JSONLoader();
 	//SECTION INITIALIZATION
 	function init(container) {
 		scene = new THREE.Scene();
@@ -57,12 +57,15 @@ function UFOs(container,data_url){
 	var counter = 0;
 	function addUFO(x,y){
 
-      var geometry = new THREE.SphereGeometry(25,50,50);
+      var geometry = new THREE.TorusGeometry(25,5,25,50);
+			//THREE.GeometryUtils.merge(geometry,geo2);
       var material = new THREE.MeshBasicMaterial({
 				color: 0xff0000
 			});
+
 			counter++;
       var ufo = new THREE.Mesh(geometry,material);
+
 			ufo.name = counter.toString();
 			cube.add(ufo);
 		  ufo.position.set(-928/2 +x,592/2 -y,50);

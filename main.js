@@ -37,7 +37,7 @@ $.getJSON("ufos.json",function(data){
   }
 
     data.forEach(function(ufo){
-      var year = ufo[0].substring(0,6);
+      var year = ufo[0].substring(0,4);
         if(year in years){
             years[year].push([ufo[2],ufo[3]]);
         }
