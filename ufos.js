@@ -38,14 +38,19 @@ function UFOs(container){
 		window.renderer = renderer;
 	}
 	function initCube() {
-                var loader = new THREE.TextureLoader();
+    var loader = new THREE.TextureLoader();
 
-                var texture = loader.load("img/usmap.gif");
+    var texture = loader.load("img/usmap.gif");
 		var material = new THREE.MeshPhongMaterial({map:texture});
+
 		material.bumpMap =texture;
 
 		material.bumpScale = 22;
 		cube = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
+
+		var undermaterial = new THREE.MeshBasicMaterial({color:0x000000});
+		var undermap = new THREE.Mesh(new THREE.CubeGeometry(10000,10000,1),undermaterial);
+		cube.add(undermap);
 		var light = new THREE.DirectionalLight( 0xffffff );
 		light.position.set( 1, 1, 1).normalize();
 		scene.add(light);
@@ -157,11 +162,13 @@ function UFOs(container){
     }, false);
 }
 	function rotateScene(deltaX,deltaY){
-		cube.rotation.z -= deltaX/100;
+			cube.rotation.z-= deltaX/100;
 	}
     function moveScene(deltaX, deltaY) {
+			console.log(camera.position.z)
+			if(camera.position.z > 100 || deltaY > 0){
 					camera.position.z += deltaY;
 					camera.rotation.x-=deltaY/360;
-
+				}
 	}
 }
