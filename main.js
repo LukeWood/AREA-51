@@ -5,9 +5,10 @@ $.getJSON("ufos.json",function(data){
   selector = document.createElement("select");
   selector.innerHTML = "UFOs in Year: ";
   selector.style.position = "absolute";
+  selector.style.margin= "20px";
   selector.style.top=5;
   selector.style.left=5;
-  selector.style.width = "100px";
+  selector.style.width = "300px";
   function change(){
     map.destroy();
     map = new UFOs(document,"data/data.json");
@@ -44,8 +45,9 @@ $.getJSON("ufos.json",function(data){
           years[year] = [[ufo[2],ufo[3]]];
           var date = document.createElement("option");
           date.setAttribute("value", year);
-          date.style.padding="20px";
           date.className = "year";
+          date.style.width="100%";
+          date.style.textAlign="center";
           date.innerHTML = year;
           date.onclick = change;
           selector.appendChild(date);
