@@ -54,13 +54,11 @@ function UFOs(container,data_url){
 	var ufos = [];
 	var counter = 0;
       var ufo_geometry = new THREE.TorusGeometry(25,5,25,50);
-      var ufo_material = new THREE.MeshBasicMaterial({
-				color: 0xff0000
-			});
+
 	function addUFO(x,y){
 			counter++;
       var ufo = new THREE.Mesh(ufo_geometry,ufo_material);
-
+			var ufo_material = new THREE.MeshBasicMaterial({color: Math.random()%0xffffff,opacity:.6});
 			ufo.name = counter.toString();
 			cube.add(ufo);
 		  ufo.position.set(-928/2 +x,592/2 -y,400);
