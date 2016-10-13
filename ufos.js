@@ -59,7 +59,7 @@ function UFOs(container){
 	}
 	var ufos = [];
 	var counter = 0;
-      var ufo_geometry = new THREE.TorusGeometry(25,5,25,50);
+      var ufo_geometry = new THREE.TorusGeometry(15,5,15,50);
 
 	function addUFO(x,y){
 			counter++;
