@@ -34,6 +34,9 @@ $.getJSON("ufos.json",function(data){
               }
             }
           }
+
+          map.startAnimation();
+
   }
 
     data.forEach(function(ufo){

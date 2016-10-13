@@ -59,12 +59,27 @@ function UFOs(container,data_url){
 			});
 	function addUFO(x,y){
 			counter++;
-                  var ufo = new THREE.Mesh(ufo_geometry,ufo_material);
+      var ufo = new THREE.Mesh(ufo_geometry,ufo_material);
 
 			ufo.name = counter.toString();
 			cube.add(ufo);
-		  ufo.position.set(-928/2 +x,592/2 -y,50);
+		  ufo.position.set(-928/2 +x,592/2 -y,400);
 			ufos.push(ufo);
+	}
+	function animateUFO(ufo){
+			ufo.completelyAnimated = false;
+			ufo.ival = setInterval(function(){
+				ufo.position.z-=3;
+				if(ufo.position.z <=75)
+				{
+					clearInterval(ufo.ival);
+				}
+			},20);
+	}
+	this.startAnimation = function(){
+			ufos.forEach(function(ufo){
+					animateUFO(ufo);
+			});
 	}
 	function addUFOPercent(x,y){
 			addUFO(x*MAXWIDTH, y*MAXHEIGHT);
