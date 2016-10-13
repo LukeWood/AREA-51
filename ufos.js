@@ -35,6 +35,7 @@ function UFOs(container,data_url){
 	function initRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setSize(WIDTH, HEIGHT);
+		window.renderer = renderer;
 	}
 
 	function initCube() {
@@ -93,6 +94,9 @@ function UFOs(container,data_url){
 	this.resize = resize;
 	this.addUFOPercent = addUFOPercent;
 
+	this.destroy = function(){
+			renderer.domElement.parentNode.removeChild(renderer.domElement);
+	}
 
 	var mouseDown = false,mouseX,mouseY;
 	// kept all of these at the end so they're out of the way.
