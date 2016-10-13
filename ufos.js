@@ -14,19 +14,24 @@ function UFOs(container){
 	function init(container) {
 		scene = new THREE.Scene();
 		initCamera();
-		initRenderer();
+		if(!window.renderer)
+			initRenderer();
+		renderer = window.renderer;
 		initCube();
 		container.body.appendChild(renderer.domElement);
+
 		addMouseHandler(renderer.domElement);
 		render();
 	}
 	function resize(){
 		WIDTH  = window.innerWidth;
 		HEIGHT = window.innerHeight
+		camera.aspect = WIDTH/HEIGHT;
+		camera.updateProjectionMatrix();
 		renderer.setSize(WIDTH, HEIGHT);
 	}
 	function initCamera() {
-		camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT, 1, 10000);
+		camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT, 1, 4000);
 		camera.position.set(0,-500,500);
 		camera.lookAt(scene.position);
 	}
@@ -47,10 +52,6 @@ function UFOs(container){
 
 		material.bumpScale = 22;
 		cube = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
-
-		var undermaterial = new THREE.MeshBasicMaterial({color:0x000000});
-		var undermap = new THREE.Mesh(new THREE.CubeGeometry(10000,10000,1),undermaterial);
-		cube.add(undermap);
 		var light = new THREE.DirectionalLight( 0xffffff );
 		light.position.set( 1, 1, 1).normalize();
 		scene.add(light);
@@ -88,6 +89,7 @@ function UFOs(container){
 			addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
 	function remove(ufo){
+			clearInterval(ufo.ival);
 			ufo.ival2 = setInterval(function(){
 					ufo.position.z+=5;
 					if(ufo.position.z >=500){
@@ -165,7 +167,6 @@ function UFOs(container){
 			cube.rotation.z-= deltaX/100;
 	}
     function moveScene(deltaX, deltaY) {
-			console.log(camera.position.z)
 			if(camera.position.z > 100 || deltaY > 0){
 					camera.position.z += deltaY;
 					camera.rotation.x-=deltaY/360;
