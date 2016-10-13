@@ -1,65 +1,45 @@
-var map = new UFOs(document,"data/data.json");
+var map = new UFOs(document);
 var years = {};
-var selector;
-$.getJSON("ufos.json",function(data){
-  selector = document.createElement("select");
-  selector.innerHTML = "UFOs in Year: ";
-  selector.style.position = "absolute";
-  selector.style.margin= "20px";
-  selector.style.top=5;
-  selector.style.left=5;
-  selector.style.width = "300px";
-  function change(){
-    map.destroy();
-    map = new UFOs(document,"data/data.json");
-    var year = this.getAttribute("value");
+var year;
+var selector = document.createElement("h1");
+selector.style.position="absolute";
+selector.style.zIndex = 1000;
+selector.style.color = "white";
+selector.style.top=0;
+selector.style.left=0;
+document.body.appendChild(selector);
 
-          var data = years[year];
-          for(var i = 0; i < data.length; i++)
-          {
-            tdata = data[i];
-            if(tdata != undefined){
-              var x = tdata[0];
-              var y=  tdata[1];
-              var xi = x, yi = y;
-              //console.log(x);
-              y +=81.5;
-              y/=-145.68+81.5;
-              x-=26.45;
-              x/=60.55-28.5;
-              if(x < 1 && x > 0 && y < 1 && y > 0){
-              //console.log(x)
-
-                map.addUFOPercent(x,y);
-              }
+$.getJSON("used_data/years.json",function(data){
+    years = data;
+    year = years[0];
+    selector.innerHTML = year;
+    $.getJSON("used_data/"+year+".json",function(data){
+        map.destroy();
+        map = new UFOs(document);
+        var tdata;
+        for(var i = 0; i < data.length; i++)
+        {
+              tdata = data[i];
+              if(tdata != undefined){
+                var x = tdata[2];
+                var y=  tdata[3];
+                var xi = x, yi = y;
+                //console.log(x);
+                y +=81.5;
+                y/=-145.68+81.5;
+                x-=26.45;
+                x/=60.55-28.5;
+                if(x < 1 && x > 0 && y < 1 && y > 0){
+                  map.addUFOPercent(x,y);
             }
           }
-
-          map.startAnimation();
-
-  }
-
-    data.forEach(function(ufo){
-      var year = ufo[0].substring(0,4);
-        if(year in years){
-            years[year].push([ufo[2],ufo[3]]);
         }
-        else{
-          years[year] = [[ufo[2],ufo[3]]];
-          var date = document.createElement("option");
-          date.setAttribute("value", year);
-          date.className = "year";
-          date.style.width="100%";
-          date.style.textAlign="center";
-          date.innerHTML = year;
-          date.onclick = change;
-          selector.appendChild(date);
-        }
+
+            map.startAnimation();
 
     });
-    selector.children[0].className = "year selected";
-    document.body.appendChild(selector);
 });
+
 $(window).resize(function(){
   map.resize();
 });

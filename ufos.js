@@ -1,6 +1,6 @@
 "use strict";
 
-function UFOs(container,data_url){
+function UFOs(container){
 
 	//scene elements, I wouldn't mess with these if you are trying to work with this
 	var scene, camera, renderer, cube;
