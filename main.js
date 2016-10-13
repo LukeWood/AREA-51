@@ -33,7 +33,6 @@ $.getJSON("ufos.json",function(data){
               }
             }
           }
-
   }
 
     data.forEach(function(ufo){
@@ -56,7 +55,6 @@ $.getJSON("ufos.json",function(data){
     selector.children[0].className = "year selected";
     document.body.appendChild(selector);
 });
-//bounds:-123.4,24.8,-65.9,48.5
 $(window).resize(function(){
   map.resize();
 });

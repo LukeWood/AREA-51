@@ -37,12 +37,10 @@ function UFOs(container,data_url){
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
 	}
-
 	function initCube() {
+                var loader = new THREE.TextureLoader();
 
-		var loader = new THREE.TextureLoader();
-    var texture = loader.load("usmap.gif");
-
+                var texture = loader.load("usmap.gif");
 		var material = new THREE.MeshPhongMaterial({map:texture});
 		material.bumpMap =texture;
 
@@ -55,16 +53,13 @@ function UFOs(container,data_url){
 	}
 	var ufos = [];
 	var counter = 0;
-	function addUFO(x,y){
-
-      var geometry = new THREE.TorusGeometry(25,5,25,50);
-			//THREE.GeometryUtils.merge(geometry,geo2);
-      var material = new THREE.MeshBasicMaterial({
+      var ufo_geometry = new THREE.TorusGeometry(25,5,25,50);
+      var ufo_material = new THREE.MeshBasicMaterial({
 				color: 0xff0000
 			});
-
+	function addUFO(x,y){
 			counter++;
-      var ufo = new THREE.Mesh(geometry,material);
+                  var ufo = new THREE.Mesh(ufo_geometry,ufo_material);
 
 			ufo.name = counter.toString();
 			cube.add(ufo);
