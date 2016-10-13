@@ -74,7 +74,7 @@ function UFOs(container,data_url){
 	function clearUFOs()
 	{
 			ufos.forEach(function(ufo){
-				scene.remove(ufo.name);
+				scene.remove(ufo);
 			});
 	}
 
@@ -89,7 +89,7 @@ function UFOs(container,data_url){
 
 	init(container);
 	this.addUFO = addUFO;
-	this.clear = clearUFOs;
+	this.clearUFOs = clearUFOs;
 	this.resize = resize;
 	this.addUFOPercent = addUFOPercent;
 
