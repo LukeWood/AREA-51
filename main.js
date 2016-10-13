@@ -24,8 +24,7 @@ function update(){
   selector.innerHTML = year.substring(0,4) + "/"+year.slice(-2);
 
   $.getJSON("used_data/"+year+".json",function(data){
-      map.destroy();
-      map = new UFOs(document);
+      map.clearUFOs();
       var tdata;
       for(var i = 0; i < data.length; i++)
       {

@@ -82,12 +82,21 @@ function UFOs(container){
 	function addUFOPercent(x,y){
 			addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
-
+	function remove(ufo){
+			ufo.ival2 = setInterval(function(){
+					ufo.z+=3;
+					if(ufo.z >=300){
+						clearInterval(ufo.ival2);
+						scene.remove(ufo);
+					}
+			},30);
+	}
 	function clearUFOs()
 	{
 			ufos.forEach(function(ufo){
-				scene.remove(ufo);
+				remove(ufo);
 			});
+			ufos = [];
 	}
 
 	//END INITIALIZATION
