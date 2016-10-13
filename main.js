@@ -1,19 +1,14 @@
 var map = new UFOs(document);
 var years = {};
 var year;
-var selector = document.createElement("h1");
-selector.style.position="absolute";
-selector.style.zIndex = 1000;
-selector.style.color = "white";
-selector.style.top=0;
-selector.style.left=0;
-document.body.appendChild(selector);
+var selector = document.getElementById("labelheader");
+var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 var index = -1;
 
 $.getJSON("used_data/years.json",function(data){
     years = data;
-    setInterval(update,3000);
+    setInterval(update,5000);
 });
 function update(){
   index++;
@@ -21,7 +16,7 @@ function update(){
     index = 0;
   }
   year = years[index];
-  selector.innerHTML = year.substring(0,4) + "/"+year.slice(-2);
+  selector.innerHTML = "UFO sightings in "+months[parseInt(year.slice(-2))]+ ", " + year.substring(0,4);
 
   $.getJSON("used_data/"+year+".json",function(data){
       map.clearUFOs();

@@ -40,7 +40,7 @@ function UFOs(container){
 	function initCube() {
                 var loader = new THREE.TextureLoader();
 
-                var texture = loader.load("usmap.gif");
+                var texture = loader.load("img/usmap.gif");
 		var material = new THREE.MeshPhongMaterial({map:texture});
 		material.bumpMap =texture;
 
