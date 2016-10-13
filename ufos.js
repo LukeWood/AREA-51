@@ -84,10 +84,10 @@ function UFOs(container){
 	}
 	function remove(ufo){
 			ufo.ival2 = setInterval(function(){
-					ufo.z+=3;
-					if(ufo.z >=300){
+					ufo.position.z+=5;
+					if(ufo.position.z >=500){
 						clearInterval(ufo.ival2);
-						scene.remove(ufo);
+						cube.remove(ufo);
 					}
 			},30);
 	}
@@ -96,7 +96,7 @@ function UFOs(container){
 			ufos.forEach(function(ufo){
 				remove(ufo);
 			});
-			ufos = [];
+			ufos.splice(0,ufos.length);
 	}
 
 	//END INITIALIZATION
