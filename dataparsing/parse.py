@@ -28,15 +28,15 @@ for spot in all_spottings[:1000]:
         location = geolocator.geocode(spot[1])
     except:
         continue
-    if not (out_file == str(spot[0])[:6]):
+    if not (out_file == str(spot[0])[:8]):
         if of != False:
             to_print.sort(key=lambda x: x[0])
             of.write(json.dumps(to_print))
             to_print = []
             of.close()
 
-        of = open("out/"+str(spot[0])[:6]+".json","w")
-        out_file = str(spot[0])[:6]
+        of = open("out/"+str(spot[0])[:8]+".json","w")
+        out_file = str(spot[0])[:8]
         print("Opened "+ out_file)
     if location is not None:
         to_print.append([spot[0],spot[1],location.latitude,location.longitude])

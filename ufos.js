@@ -57,7 +57,6 @@ function UFOs(container){
 		scene.add(light);
 		scene.add(cube);
 	}
-	var ufos = [];
 	var counter = 0;
       var ufo_geometry = new THREE.TorusGeometry(15,5,15,50);
 
@@ -68,26 +67,24 @@ function UFOs(container){
 			ufo.name = counter.toString();
 			cube.add(ufo);
 		  ufo.position.set(-928/2 +x,592/2 -y,400);
-			ufos.push(ufo);
+			animateUFO(ufo);
 	}
+
 	function animateUFO(ufo){
-			ufo.completelyAnimated = false;
 			ufo.ival = setInterval(function(){
 				ufo.position.z-=3;
 				if(ufo.position.z <=75)
 				{
 					clearInterval(ufo.ival);
+					setTimeout(function(){remove(ufo);},300);
 				}
 			},20);
 	}
-	this.startAnimation = function(){
-			ufos.forEach(function(ufo){
-					animateUFO(ufo);
-			});
-	}
+
 	function addUFOPercent(x,y){
 			addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
+
 	function remove(ufo){
 			clearInterval(ufo.ival);
 			ufo.ival2 = setInterval(function(){
@@ -97,13 +94,6 @@ function UFOs(container){
 						cube.remove(ufo);
 					}
 			},30);
-	}
-	function clearUFOs()
-	{
-			ufos.forEach(function(ufo){
-				remove(ufo);
-			});
-			ufos.splice(0,ufos.length);
 	}
 
 	//END INITIALIZATION
@@ -117,7 +107,6 @@ function UFOs(container){
 
 	init(container);
 	this.addUFO = addUFO;
-	this.clearUFOs = clearUFOs;
 	this.resize = resize;
 	this.addUFOPercent = addUFOPercent;
 

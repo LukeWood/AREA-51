@@ -3,7 +3,7 @@ years = []
 with open("../data/ufos.tsv") as f:
     for line in f:
         split = line.split('\t')
-        year = split[0][:6] if int(split[0][:6]) > int(split[1][:6]) else split[1][:6]
+        year = split[0][:8] if int(split[0][:8]) > int(split[1][:8]) else split[1][:8]
         if not year in years:
             years.append(year)
 
