@@ -4,7 +4,9 @@
 
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 	<style>
+
 		*{
 			padding:0;
 			margin:0;
@@ -30,42 +32,53 @@
 			position:absolute;
 			background-color:black;
 			cursor:pointer;
+			color:white;
 		}
 		#timeline{
 			width:100%;
-			height:20px;
+			height:30px;
 			background-color:white;
 			position:absolute;
+			cursor:pointer;
 			top:0;
 			left:0;
 		}
 		#firstYear{
 			position:absolute;
-			top:20px;
+			top:0px;
 			left:0;
 			color:white;
+			font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;
 		}
 		#lastYear{
 				position:absolute;
 				right:0;
-				top:20px;
+				top:0px;
 				color:white;
+				font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;
 		}
 		#currentYear{
 			color:white;
+			font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;
 		}
+
 	</style>
 		<script src="libs/three.min.js"></script>
 	</head>
 	<body>
 		<div id = "cover">
+			<center>
+				<h1 style="margin: 65px 25px 25px; font-size: 200px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Area 51</h1>
+				<h2 style="margin: 65px 25px 25px; font-size: 50px; font-family: 'Orbitron',sans-serif; font-weight: 200;">An Analysis of Sensationalist media<br> and the copycat effect</h2>
+				<h2 style="margin: 65px 25px 25px; font-size: 40px; font-family: 'Orbitron',sans-serif; font-weight: 200;"><br>Drag to Rotate the Camera<br>Click Anywhere to Start</h2>
+			</center>
 		</div>
 
 		<canvas id = "timeline"></canvas>
 		<div id = "firstYear"></div>
 		<div id = "lastYear"></div>
 		<div id = "container"></div>
-		<center style="top:20px;width:100%;position:absolute; overflow:visible; height:10%;"><div id="currentYear">H</div></center>
+		<center style="top:0px;width:100%;position:absolute; overflow:visible; height:10%;"><div id="currentYear"></div></center>
 		<script src = "ufos.js"></script>
 		<script src="main.js"></script>
 	</body>

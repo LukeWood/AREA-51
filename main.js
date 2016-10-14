@@ -21,8 +21,9 @@ $.getJSON("used_data/years.json",function(data){
     document.getElementById("lastYear").innerHTML = months[parseInt(years[years.length-1].slice(-4).substring(0,2))-1]+" " + years[years.length-1].slice(-2)+", " +years[years.length-1].substring(0,4);
 });
 $("#cover").one("click",function(){
-    update();
-    $("#cover").hide();
+  updateTimeline();
+    $("#cover").fadeOut();
+    setTimeout(update,500);
 });
 
 var days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
@@ -93,15 +94,16 @@ $(window).resize(function(){
   map.resize();
 });
 var timeline = document.getElementById("timeline");
-$(timeline).click(function(e){
+/*$(timeline).click(function(e){
     var x = e.clientX/window.innerWidth;
-    year = years[Math.round(x * years.length)];
-});
+    year = ((x*year_span) + year_min).toString();
+});*/
+
 var ctx = timeline.getContext("2d");
 function updateTimeline(){
   ctx.fillStyle = "#FF0000";
   ctx.fillRect(0,0,timeline.width,timeline.height);
-  ctx.fillStyle="#00FF00";
+  ctx.fillStyle="#0000FF";
   ctx.fillRect(0,0,timeline.width*(parseInt(year)-year_min)/year_span,timeline.height);
 
 }
