@@ -62,6 +62,7 @@
 		}
 		#currentYear{
 			color:white;
+			pointer-events:none;
 			font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;
 		}
 
@@ -79,15 +80,14 @@
 
 		<canvas id = "timeline"></canvas>
 		<div style="position:absolute;left:10px; top:40px; background-color:white; padding:5px; border-radius:5px;">
-			<center><h2 style="pointer-events: none; font-size: 20px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Speed:</h2></center>
-		<input id="slider" type="range">
+			<center><h2 style="pointer-events: none; font-size: 20px; font-family: 'Orbitron',sans-serif; font-weight: 200; poitner-events:none;">Speed:</h2></center>
+		<input id="slider" type="range" style="cursor:grab;">
 		</input>
 		</div>
 		<div style="pointer-events: none; " id = "firstYear"></div>
 		<div style="pointer-events: none; " id = "lastYear"></div>
-		<div style="pointer-events: none; " id = "container"></div>
 
-		<center style="top:0px;width:100%;position:absolute; overflow:visible; height:10%;"><div style="pointer-events: none; " id="currentYear"></div></center>
+		<center style="top:0px;width:100%;position:absolute; overflow:visible; height:10%; pointer-events:none;"><div style="pointer-events: none;" id="currentYear"></div></center>
 		<script src = "ufos.js"></script>
 		<script src="main.js"></script>
 

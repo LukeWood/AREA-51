@@ -19,7 +19,7 @@ function UFOs(container){
 		renderer = window.renderer;
 		initCube();
 		container.body.appendChild(renderer.domElement);
-
+		renderer.domElement.style.cursor="grab";
 		addMouseHandler(renderer.domElement);
 		render();
 	}
@@ -133,11 +133,13 @@ function UFOs(container){
     }
     function onMouseUp(evt) {
         evt.preventDefault();
+				renderer.domElement.style.cursor = "grab";
 
         mouseDown = false;
     }
 	function onMouseDown(evt){
 		evt.preventDefault();
+		renderer.domElement.style.cursor = "grabbing";
 		mouseDown = true;
 	}
 

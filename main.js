@@ -111,6 +111,12 @@ function updateTimeline(){
 
 }
 document.getElementById("slider").value = 0;
+$("#slider").mousedown(function(){
+  this.style.cursor = "grabbing";
+});;
+$("#slider").mouseup(function(){
+    this.style.cursor="grab";
+});
 $('#slider').change(function(){
   speed = document.getElementById("slider").value;
 });
