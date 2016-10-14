@@ -9,7 +9,7 @@ var index = -1;
 var year_span;
 
 var last_added = 0;
-
+var currentYear = document.getElementById("currentYear");
 //todo: implement this.
 var existing_json;
 
@@ -19,8 +19,8 @@ $.getJSON("used_data/years.json",function(data){
     year_min = parseInt(years[0]);
     year = years[0];
     year_span = year_max-year_min;
-    document.getElementById("firstYear").innerHTML = months[parseInt(years[0].slice(-4).slice(-2))]+" " + years[0].slice(-2)+", " +years[0].substring(0,4);
-    document.getElementById("lastYear").innerHTML = months[parseInt(years[years.length-1].slice(-4).slice(-2))]+" " + years[years.length-1].slice(-2)+", " +years[years.length-1].substring(0,4);
+    document.getElementById("firstYear").innerHTML = months[parseInt(years[0].slice(-4).substring(0,2))]+" " + years[0].slice(-2)+", " +years[0].substring(0,4);
+    document.getElementById("lastYear").innerHTML = months[parseInt(years[years.length-1].slice(-4).substring(0,2))]+" " + years[years.length-1].slice(-2)+", " +years[years.length-1].substring(0,4);
 });
 $("#cover").one("click",function(){
     update();
@@ -32,7 +32,7 @@ function update(){
   year= year.toString();
   last_added++;
   updateTimeline();
-
+  currentYear.innerHTML = months[parseInt(year.slice(-4).substring(0,2))]+" " + year.slice(-2)+", " +year.substring(0,4);
   $.getJSON("used_data/"+year+".json",function(data){
       var tdata;
       var added = false
@@ -67,6 +67,11 @@ $(window).resize(function(){
   map.resize();
 });
 var timeline = document.getElementById("timeline");
+$(timeline).click(function(e){
+    var x = e.clientX/window.innerWidth;
+    console.log(x);
+    year = (x*year_span + year_min).toString();
+});
 var ctx = timeline.getContext("2d");
 function updateTimeline(){
   ctx.fillStyle = "#FF0000";

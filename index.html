@@ -29,6 +29,7 @@
 			z-index:1000;
 			position:absolute;
 			background-color:black;
+			cursor:pointer;
 		}
 		#timeline{
 			width:100%;
@@ -50,6 +51,9 @@
 				top:20px;
 				color:white;
 		}
+		#currentYear{
+			color:white;
+		}
 	</style>
 		<script src="libs/three.min.js"></script>
 	</head>
@@ -61,7 +65,7 @@
 		<div id = "firstYear"></div>
 		<div id = "lastYear"></div>
 		<div id = "container"></div>
-
+		<center style="top:20px;width:100%;position:absolute; overflow:visible; height:10%;"><div id="currentYear">H</div></center>
 		<script src = "ufos.js"></script>
 		<script src="main.js"></script>
 	</body>
