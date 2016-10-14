@@ -4,6 +4,9 @@
 
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	 <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+
+	 <link href="rangesliderjs/rangeslider.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 	<style>
 
@@ -68,18 +71,25 @@
 	<body>
 		<div id = "cover">
 			<center>
-				<h1 style="margin: 65px 25px 25px; font-size: 200px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Area 51</h1>
-				<h2 style="margin: 65px 25px 25px; font-size: 50px; font-family: 'Orbitron',sans-serif; font-weight: 200;">An Analysis of Sensationalist media<br> and the copycat effect</h2>
-				<h2 style="margin: 65px 25px 25px; font-size: 40px; font-family: 'Orbitron',sans-serif; font-weight: 200;"><br>Drag to Rotate the Camera<br>Click Anywhere to Start</h2>
+				<h1 style="pointer-events: none; margin: 65px 25px 25px; font-size: 200px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Area 51</h1>
+				<h2 style="pointer-events: none; margin: 65px 25px 25px; font-size: 50px; font-family: 'Orbitron',sans-serif; font-weight: 200;">An Analysis of Sensationalist media<br> and the copycat effect</h2>
+				<h2 style="pointer-events: none; margin: 65px 25px 25px; font-size: 40px; font-family: 'Orbitron',sans-serif; font-weight: 200;"><br>Drag to Rotate the Camera<br>Click Anywhere to Start</h2>
 			</center>
 		</div>
 
 		<canvas id = "timeline"></canvas>
-		<div id = "firstYear"></div>
-		<div id = "lastYear"></div>
-		<div id = "container"></div>
-		<center style="top:0px;width:100%;position:absolute; overflow:visible; height:10%;"><div id="currentYear"></div></center>
+		<div style="position:absolute;left:10px; top:40px; background-color:white; padding:5px; border-radius:5px;">
+			<center><h2 style="pointer-events: none; font-size: 20px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Speed:</h2></center>
+		<input id="slider" type="range">
+		</input>
+		</div>
+		<div style="pointer-events: none; " id = "firstYear"></div>
+		<div style="pointer-events: none; " id = "lastYear"></div>
+		<div style="pointer-events: none; " id = "container"></div>
+
+		<center style="top:0px;width:100%;position:absolute; overflow:visible; height:10%;"><div style="pointer-events: none; " id="currentYear"></div></center>
 		<script src = "ufos.js"></script>
 		<script src="main.js"></script>
+
 	</body>
 </html>

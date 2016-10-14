@@ -6,10 +6,13 @@ var year_min;
 var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 var index = -1;
 var year_span;
-
+var speed = 0;
 var last_added = 0;
 var currentYear = document.getElementById("currentYear");
-//todo: implement this.
+
+var speed_controller = document.getElementById("speedController");
+
+
 
 $.getJSON("used_data/years.json",function(data){
     years = data;
@@ -83,11 +86,11 @@ function update(){
 
         });
 }
-  var time = 500-Math.pow(2,last_added);
-  if(time < 0){
-    time = 10;
-  }
-  setTimeout(update,time);
+  var time = 1000-(speed*9)-Math.pow(3,last_added);
+    if(time < 0){
+      time = 10;
+    }
+    setTimeout(update,time);
 }
 
 $(window).resize(function(){
@@ -107,3 +110,7 @@ function updateTimeline(){
   ctx.fillRect(0,0,timeline.width*(parseInt(year)-year_min)/year_span,timeline.height);
 
 }
+document.getElementById("slider").value = 0;
+$('#slider').change(function(){
+  speed = document.getElementById("slider").value;
+});
