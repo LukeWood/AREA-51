@@ -18,11 +18,16 @@ function update(){
   }
   year = years[index];
   selector.innerHTML = "UFO sightings in "+months[parseInt(year.slice(-4).substring(0,2))]+ " "+year.slice(-2)+", " + year.substring(0,4);
+  last_added++;
 
   $.getJSON("used_data/"+year+".json",function(data){
       var tdata;
+      var added = false;
+
       for(var i = 0; i < data.length; i++)
       {
+            added = true;
+            last_added = 0;
             tdata = data[i];
             if(tdata != undefined){
               var x = tdata[2];
@@ -40,6 +45,11 @@ function update(){
       }
 
   });
+  var time = 500-Math.pow(2,last_added);
+  if(time < 100){
+    time = 50;
+  }
+  setTimeout(update,time);
 }
 $(window).resize(function(){
   map.resize();
