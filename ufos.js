@@ -42,6 +42,7 @@ function UFOs(container){
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
 	}
+
 	function initCube() {
     var loader = new THREE.TextureLoader();
 
@@ -53,17 +54,32 @@ function UFOs(container){
 		material.bumpScale = 22;
 		cube = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
 		var light = new THREE.DirectionalLight( 0xffffff );
-		light.position.set( 1, 1, 1).normalize();
+		light.position.set( 1000, 1000, 1000);
+		light.castShadow = true;
+		cube.receiveShadow = true;
 		scene.add(light);
 		scene.add(cube);
 	}
 	var counter = 0;
-      var ufo_geometry = new THREE.TorusGeometry(15,5,15,50);
+	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
+	var ufo_geo2 = new THREE.SphereGeometry(13,32,32);	
+	var ufo_material = new THREE.MeshBasicMaterial({color: 0xff0000,opacity:.6});
+	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x0000ff,opacity:.6});
+	/*var t_mesh = new THREE.Mesh(ufo_geo1,ufo_material);
+	var t_mesh2 = new THREE.Mesh(ufo_geo2,ufo_material);
 
+	t_mesh.updateMatrix();
+	ufo_geometry.merge(t_mesh.geometry,t_mesh.matrix);
+	t_mesh2.updateMatrix();
+	ufo_geometry.merge(t_mesh2.geometry,t_mesh2.matrix);
+*/
 	function addUFO(x,y){
 			counter++;
-      var ufo = new THREE.Mesh(ufo_geometry,ufo_material);
-			var ufo_material = new THREE.MeshBasicMaterial({color: Math.random()%0xffffff,opacity:.6});
+      var ufo = new THREE.Mesh(ufo_geo1,ufo_material);
+	var sub_ufo = new THREE.Mesh(ufo_geo2,ufo_material2);
+	ufo.add(sub_ufo);
+      ufo.castShadow = true;
+      ufo.receiveShadow = true;
 			ufo.name = counter.toString();
 			cube.add(ufo);
 		  ufo.position.set(-928/2 +x,592/2 -y,400);
