@@ -127,8 +127,7 @@ function UFOs(container){
 
         	e.preventDefault();
 
-        	var deltaX = e.clientX - mouseX,
-            	var deltaY = e.clientY - mouseY;
+        	var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
        		mouseX = e.clientX;
         	mouseY = e.clientY;
 
