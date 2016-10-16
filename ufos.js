@@ -3,7 +3,7 @@
 function UFOs(container){
 
 	//scene elements, I wouldn't mess with these if you are trying to work with this
-	var scene, camera, renderer, cube;
+	var scene, camera, renderer, map;
 	//Mess with these if you don't want a full screen visualization
 	var WIDTH  = window.innerWidth;
 	var HEIGHT = window.innerHeight;
@@ -17,7 +17,8 @@ function UFOs(container){
 		if(!window.renderer)
 			initRenderer();
 		renderer = window.renderer;
-		initCube();
+		initMap();
+		initBackground();
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
 		addMouseHandler(renderer.domElement);
@@ -41,14 +42,24 @@ function UFOs(container){
 	//Prevents excessive WebGLRenderer instances
 	function initRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true });
-		renderer.setClearColor(0x000000,1);
-		renderer.shadowMap.enabled = true;
-		renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+		renderer.setClearColor(0x000000,0);
+		//renderer.shadowMap.enabled = true;
+		//renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
 	}
+	
+	function initBackground(){
+		var loader = new THREE.TextureLoader();
 
-	function initCube() {
+		var texture = loader.load("img/space.jpg");
+		var material = new THREE.MeshBasicMaterial({map:texture});
+		material.side = THREE.BackSide;
+		var mesh = new THREE.Mesh(new THREE.SphereGeometry(700,32,32), material);
+		scene.add(mesh);
+	}
+
+	function initMap() {
 		var loader = new THREE.TextureLoader();
 
 	    	var texture = loader.load("img/usmap.gif");
@@ -57,13 +68,13 @@ function UFOs(container){
 		material.bumpMap =texture;
 
 		material.bumpScale = 22;
-		cube = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
+		map = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
 		var light = new THREE.DirectionalLight( 0xffffff );
 		light.position.set( 1000, 1000, 1000);
 		light.castShadow = true;
-		cube.receiveShadow = true;
+		map.receiveShadow = true;
 		scene.add(light);
-		scene.add(cube);
+		scene.add(map);
 	}
 
 	var counter = 0;
@@ -80,7 +91,7 @@ function UFOs(container){
       		ufo.castShadow = true;
       		ufo.receiveShadow = true;
 		ufo.name = counter.toString();
-		cube.add(ufo);
+		map.add(ufo);
 		ufo.position.set(-928/2 +x,592/2 -y,400);
 		animateUFO(ufo);
 	}
@@ -107,7 +118,7 @@ function UFOs(container){
 			ufo.position.z+=5;
 			if(ufo.position.z >=500){
 				clearInterval(ufo.ival2);
-				cube.remove(ufo);
+				map.remove(ufo);
 			}
 		},30);
 	}
@@ -166,7 +177,7 @@ function UFOs(container){
 	}
 
 	function rotateScene(deltaX,deltaY){
-			cube.rotation.z-= deltaX/100;
+			map.rotation.z-= deltaX/100;
 	}
 	function moveScene(deltaX, deltaY) {
 		if(camera.position.z > 100 || deltaY > 0){
