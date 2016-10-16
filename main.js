@@ -58,6 +58,8 @@ function incrementYear(){
     }
 }
 
+
+
 function update(){
   incrementYear();
   last_added++;
