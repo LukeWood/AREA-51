@@ -18,7 +18,7 @@ function UFOs(container){
 			initRenderer();
 		renderer = window.renderer;
 		initMap();
-		initBackground();
+		//initBackground();
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
 		addMouseHandler(renderer.domElement);
