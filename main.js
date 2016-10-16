@@ -30,6 +30,7 @@ $("#cover").one("click",function(){
 });
 
 var days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
+
 function incrementYear(){
     var month = parseInt(year.slice(-4).substring(0,2));
     var day = parseInt(year.slice(-2));
@@ -56,6 +57,7 @@ function incrementYear(){
       year = years[0];
     }
 }
+
 function update(){
   incrementYear();
   last_added++;
@@ -96,11 +98,12 @@ function update(){
 $(window).resize(function(){
   map.resize();
 });
+
+$("#restart").click(function(){
+	year = years[0];
+});
+
 var timeline = document.getElementById("timeline");
-/*$(timeline).click(function(e){
-    var x = e.clientX/window.innerWidth;
-    year = ((x*year_span) + year_min).toString();
-});*/
 
 var ctx = timeline.getContext("2d");
 function updateTimeline(){
