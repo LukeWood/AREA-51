@@ -1,18 +1,22 @@
+//the ufo map itself
 var map = new UFOs(document);
-var years = {};
-var year;
-var year_max;
-var year_min;
+
+//things relating to time/years
+var years, year, year_max, year_min, year_span;
 var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-var index = -1;
-var year_span;
+
+//speed that we move through the date, keep track of last time we added something to reduce time between months to prevent large stale periodss
 var speed = 0;
 var last_added = 0;
-var currentYear = document.getElementById("currentYear");
 
+var currentYear = document.getElementById("currentYear");
 var speed_controller = document.getElementById("speedController");
 
+var ready = false;
 
+function convertToDate(year_t){
+        return months[parseInt(year_t.slice(-4).substring(0,2))]+" " + year_t.slice(-2)+", " +year_t.substring(0,4);
+}
 
 $.getJSON("used_data/years.json",function(data){
     years = data;
@@ -20,13 +24,18 @@ $.getJSON("used_data/years.json",function(data){
     year_min = parseInt(years[0]);
     year = years[0];
     year_span = year_max-year_min;
-    document.getElementById("firstYear").innerHTML = months[parseInt(years[0].slice(-4).substring(0,2))]+" " + years[0].slice(-2)+", " +years[0].substring(0,4);
-    document.getElementById("lastYear").innerHTML = months[parseInt(years[years.length-1].slice(-4).substring(0,2))-1]+" " + years[years.length-1].slice(-2)+", " +years[years.length-1].substring(0,4);
+    document.getElementById("firstYear").innerHTML = convertToDate(years[0]);
+    document.getElementById("lastYear").innerHTML = convertToDate(years[years.length-1]);
+    ready = true;
 });
-$("#cover").one("click",function(){
-  updateTimeline();
+
+$("#cover").click(function(){
+    if(ready){
+    updateTimeline();
     $("#cover").fadeOut();
     setTimeout(update,500);
+    $("#cover").unbind("click");
+    }
 });
 
 var days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
