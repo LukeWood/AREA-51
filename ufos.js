@@ -41,6 +41,9 @@ function UFOs(container){
 	//Prevents excessive WebGLRenderer instances
 	function initRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.setClearColor(0x000000,1);
+		renderer.shadowMap.enabled = true;
+		renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
 	}
@@ -66,7 +69,7 @@ function UFOs(container){
 	var counter = 0;
 	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
 	var ufo_geo2 = new THREE.SphereGeometry(13,32,32);	
-	var ufo_material = new THREE.MeshBasicMaterial({color: 0xff0000,opacity:.6});
+	var ufo_material = new THREE.MeshBasicMaterial({color: 0x0099ff,opacity:.6});
 	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x0000ff,opacity:.6});
 
 	function addUFO(x,y){
