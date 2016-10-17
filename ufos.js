@@ -42,7 +42,7 @@ function UFOs(container){
 	//Prevents excessive WebGLRenderer instances
 	function initRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true });
-		renderer.setClearColor(0x000000,0);
+		renderer.setClearColor(0x000000);
 		//renderer.shadowMap.enabled = true;
 		//renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 		renderer.setSize(WIDTH, HEIGHT);
@@ -111,6 +111,7 @@ function UFOs(container){
 		},20);
 	}
 
+	//cast stars
 	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
 	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
 	function castBeam(ufo){
@@ -119,8 +120,8 @@ function UFOs(container){
 		map.add(disk);
 	  disk.position.copy(ufo.position);
 		ufo.ival = setInterval(function(){
-				disk.position.z-=3;
-				if(disk.position.z <= 10){
+				disk.position.z-=2;
+				if(disk.position.z <= 5){
 					clearInterval(ufo.ival);
 					setTimeout(function(){remove(ufo);},300);
 				}
