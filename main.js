@@ -29,12 +29,12 @@ $.getJSON("used_data/years.json",function(data){
     ready = true;
 });
 
-$("#cover").click(function(){
+$("#cover").mousedown(function(){
     if(ready){
     updateTimeline();
     $("#cover").fadeOut();
     setTimeout(update,500);
-    $("#cover").unbind("click");
+    $("#cover").unbind("mousedown");
     }
 });
 
@@ -149,7 +149,7 @@ function updateTimeline(){
   time_lock = true;
   ctx.fillStyle = "#333333";
   ctx.fillRect(0,0,timeline.width,timeline.height);
-  
+
   ctx.fillStyle="#0000FF";
 
   percentDone = years.indexOf(year) > -1 ? years.indexOf(year)/years.length : percentDone;
