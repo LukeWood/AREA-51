@@ -62,7 +62,7 @@ function UFOs(container){
 	function initMap() {
 		var loader = new THREE.TextureLoader();
 
-	    	var texture = loader.load("img/usmap.gif");
+	    	var texture = loader.load("img/usa.jpg");
 		var material = new THREE.MeshPhongMaterial({map:texture});
 
 		material.bumpMap =texture;
@@ -112,7 +112,7 @@ function UFOs(container){
 	}
 
 	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.4});
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
 	function castBeam(ufo){
 		clearInterval(ufo.ival);
 		var disk = new THREE.Mesh(diskGeo,diskMaterial);

@@ -124,7 +124,7 @@ function updateTimeline(){
   ctx.fillRect(0,0,timeline.width*(parseInt(year)-year_min)/year_span,timeline.height);
 
 }
-document.getElementById("slider").value = 0;
+document.getElementById("slider").value = 50;
 $("#slider").mousedown(function(){
   this.style.cursor = "grabbing";
 });;
