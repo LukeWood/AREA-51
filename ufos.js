@@ -10,9 +10,8 @@ function UFOs(container){
 
 	var MAXWIDTH = 928, MAXHEIGHT = 592;
 	var speed = 50;
-	this.setSpeed = function(spd){
-		speed = spd;
-	}
+	//cant just use this.speed because of bind's use later on.
+	this.setSpeed = function(spd){speed = spd;}
 	//SECTION INITIALIZATION
 	function init(container) {
 		scene = new THREE.Scene();
@@ -117,11 +116,15 @@ function UFOs(container){
 		this.position.z-=3;
 
 		if(this.position.z<=130){
-				this.disk = new THREE.Mesh(diskGeo,diskMaterial);
-				this.disk.position.copy(this.position);
+				var disk = new THREE.Mesh(diskGeo,diskMaterial);
+				disk.position.copy(this.position);
 
-				map.add(this.disk);
-				loopWrapper(castBeam.bind(this));
+				map.add(disk);
+				var tempJson = {
+						disk:disk,
+						ufo:this
+				};
+				loopWrapper(castBeam.bind(tempJson));
 				return false;
 		}
 		return true;
@@ -133,7 +136,7 @@ function UFOs(container){
 	function castBeam(){
 				this.disk.position.z-=2;
 				if(this.disk.position.z <= 3){
-						var fun = remove.bind(this);
+						var fun = remove.bind(this.ufo);
 						setTimeout(function(){loopWrapper(fun);},Math.floor(200*(150-speed)/150));
 						return false;
 				}
@@ -205,7 +208,11 @@ function UFOs(container){
 	}
 
   function addMouseHandler(canvas) {
-    		canvas.addEventListener('mousemove', function (e) {
+		document.addEventListener("touchstart", touchHandler, true);
+		document.addEventListener("touchmove", touchHandler, true);
+		    document.addEventListener("touchend", touchHandler, true);
+		    document.addEventListener("touchcancel", touchHandler, true);
+				canvas.addEventListener('mousemove', function (e) {
 		onMouseMove(e);
 	    }, false);
 	    canvas.addEventListener('mousedown', function (e) {
@@ -214,6 +221,31 @@ function UFOs(container){
 	    canvas.addEventListener('mouseup', function (e) {
 		onMouseUp(e);
 	    }, false);
+	}
+
+	function touchHandler(event)
+	{
+	    var touches = event.changedTouches,
+	        first = touches[0],
+	        type = "";
+	    switch(event.type)
+	    {
+	        case "touchstart": type = "mousedown"; break;
+	        case "touchmove":  type = "mousemove"; break;
+	        case "touchend":   type = "mouseup";   break;
+	        default:           return;
+	    }
+	    // initMouseEvent(type, canBubble, cancelable, view, clickCount,
+	    //                screenX, screenY, clientX, clientY, ctrlKey,
+	    //                altKey, shiftKey, metaKey, button, relatedTarget);
+	    var simulatedEvent = document.createEvent("MouseEvent");
+	    simulatedEvent.initMouseEvent(type, true, true, window, 1,
+	                                  first.screenX, first.screenY,
+	                                  first.clientX, first.clientY, false,
+	                                  false, false, false, 0/*left*/, null);
+
+	    first.target.dispatchEvent(simulatedEvent);
+	    event.preventDefault();
 	}
 
 	function rotateScene(deltaX,deltaY){
