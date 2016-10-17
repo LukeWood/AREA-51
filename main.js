@@ -64,6 +64,7 @@ function incrementYear(){
     year = tyear.toString()+month+day;
     if(parseInt(year) > year_max){
       year = years[0];
+      map.resetStars();
     }
 }
 
@@ -112,16 +113,27 @@ $(window).resize(function(){
 
 $("#restart").click(function(){
 	year = years[0];
+  map.resetStars();
 });
 
 var timeline = document.getElementById("timeline");
 
 var ctx = timeline.getContext("2d");
+
+var percentDone;
+var time_lock = false;
+
 function updateTimeline(){
+  if(time_lock)
+  {return;}
+  time_lock = true;
   ctx.fillStyle = "#333333";
   ctx.fillRect(0,0,timeline.width,timeline.height);
   ctx.fillStyle="#0000FF";
-  ctx.fillRect(0,0,timeline.width*(parseInt(year)-year_min)/year_span,timeline.height);
+  percentDone = years.indexOf(year) > -1 ? years.indexOf(year) : percentDone;
+  percentDone = percentDone/years.length;
+  ctx.fillRect(0,0,timeline.width*percentDone,timeline.height);
+  time_lock = false;
 
 }
 document.getElementById("slider").value = 50;
