@@ -134,7 +134,7 @@ function UFOs(container){
 				this.disk.position.z-=2;
 				if(this.disk.position.z <= 3){
 						var fun = remove.bind(this);
-						setTimeout(function(){loopWrapper(fun);},Math.floor(200));
+						setTimeout(function(){loopWrapper(fun);},Math.floor(200*(150-speed)/150));
 						return false;
 				}
 				return true;
