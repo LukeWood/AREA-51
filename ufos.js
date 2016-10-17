@@ -131,6 +131,7 @@ function UFOs(container){
 
 
 	function resetStars(){
+		//this clears nested children too, kind of a funky behavior but just had to deal with it.
 		for(var i = 0; i < 5; i++){
 			map.children.forEach(function(star){
 				if(star.ival){

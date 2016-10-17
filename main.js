@@ -67,45 +67,57 @@ function incrementYear(){
       map.resetStars();
     }
 }
-
-
+//Initialize analysis
+var analysis = ["In early May 1995 there are almost no sightings.  However, in late May 1995 there is a gigantic volume of sightings in a short period of time.",
+                "As time goes on, UFO sightings appear at an increasingly rapid rate.",
+                "There are many clusters of sightings.  People seem to copy those who live in similar areas to them."];
+var analysisDiv = document.getElementById("analysis");
+var textID = 0;
+analysisDiv.innerHTML = analysis[textID];
 
 function update(){
   incrementYear();
   last_added++;
   updateTimeline();
   currentYear.innerHTML = months[parseInt(year.slice(-4).substring(0,2))]+" " + year.slice(-2)+", " +year.substring(0,4);
-  if(years.indexOf(year) > -1){
-    $.getJSON("used_data/"+year+".json",function(data){
-          var tdata;
-          var added = false
-          for(var i = 0; i < data.length; i++)
-          {
-                added = true;
-                last_added = 0;
-                tdata = data[i];
-                if(tdata != undefined){
-                  var x = tdata[2];
-                  var y=  tdata[3];
-                  var xi = x, yi = y;
-                  y +=81.5;
-                  y/=-145.68+81.5;
-                  x-=26.45;
-                  x/=60.55-28.5;
-                  if(x < 1 && x > 0 && y < 1 && y > 0){
-                    map.addUFOPercent(x,y);
-              }
-            }
-          }
 
-        });
-}
   var time = 1000-(speed*9)-Math.pow(3,last_added);
     if(time < 0){
       time = 10;
     }
-    setTimeout(update,time);
-}
+
+    if(years.indexOf(year) > -1){
+      var tID = Math.floor((years.indexOf(year)/years.length) * analysis.length);
+      if(tID != textID){
+          textID = tID;
+          analysisDiv.innerHTML = analysis[textID];
+      }
+      $.getJSON("used_data/"+year+".json",function(data){
+            var tdata;
+            var added = false
+            for(var i = 0; i < data.length; i++)
+            {
+                  added = true;
+                  last_added = 0;
+                  tdata = data[i];
+                  if(tdata != undefined){
+                    var x = tdata[2];
+                    var y=  tdata[3];
+                    var xi = x, yi = y;
+                    y +=81.5;
+                    y/=-145.68+81.5;
+                    x-=26.45;
+                    x/=60.55-28.5;
+                    if(x < 1 && x > 0 && y < 1 && y > 0){
+                      map.addUFOPercent(x,y);
+                }
+              }
+            }
+
+          });
+      }
+      setTimeout(update,time);
+  }
 
 $(window).resize(function(){
   map.resize();
@@ -134,7 +146,7 @@ function updateTimeline(){
   ctx.fillRect(0,0,timeline.width*percentDone,timeline.height);
   time_lock = false;
 }
-document.getElementById("slider").value = 50;
+document.getElementById("slider").value = 70;
 $("#slider").mousedown(function(){
   this.style.cursor = "grabbing";
 });;
