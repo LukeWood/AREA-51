@@ -154,7 +154,7 @@ function updateTimeline(){
   ctx.fillRect(0,0,timeline.width*percentDone,timeline.height);
   time_lock = false;
 }
-document.getElementById("slider").value = 70;
+document.getElementById("slider").value = 50;
 $("#slider").mousedown(function(){
   this.style.cursor = "grabbing";
 });;
@@ -163,5 +163,5 @@ $("#slider").mouseup(function(){
 });
 $('#slider').change(function(){
   speed = document.getElementById("slider").value;
-  map.setSpeed(speed+10);
+  map.setSpeed(parseInt(speed));
 });

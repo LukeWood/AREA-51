@@ -9,7 +9,7 @@ function UFOs(container){
 	var HEIGHT = window.innerHeight;
 
 	var MAXWIDTH = 928, MAXHEIGHT = 592;
-	var speed = 80;
+	var speed = 50;
 	this.setSpeed = function(spd){
 		speed = spd;
 	}
@@ -105,7 +105,7 @@ function UFOs(container){
 
 	function loopWrapper(callback){
 			if(callback()){
-					setTimeout(function(){loopWrapper(callback);},Math.floor(20*((110-speed)/110)));
+					setTimeout(function(){loopWrapper(callback);},Math.floor(20*((150-(speed))/150)));
 			}
 	}
 
