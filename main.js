@@ -129,11 +129,17 @@ $("#restart").click(function(){
 });
 
 var timeline = document.getElementById("timeline");
-
+var $_timeline = $(timeline);
 var ctx = timeline.getContext("2d");
 
 var percentDone;
 var time_lock = false;
+
+$_timeline.click(function(e){
+    var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
+    year = years[Math.floor(years.length * x)];
+    updateTimeline();
+});
 
 function updateTimeline(){
   if(time_lock)
