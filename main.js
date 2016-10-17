@@ -68,7 +68,7 @@ function incrementYear(){
     }
 }
 //Initialize analysis
-var analysis = ["In early May 1995 there are almost no sightings.  However, in late May 1995 there is a gigantic volume of sightings in a short period of time.",
+var analysis = ["In early May 1995 there are almost no sightings.  However, by late May 1995 there are almost daily sightings in New Mexico",
                 "As time goes on, UFO sightings appear at an increasingly rapid rate.",
                 "There are many clusters of sightings.  People seem to copy those who live in similar areas to them."];
 var analysisDiv = document.getElementById("analysis");
@@ -79,7 +79,7 @@ function update(){
   incrementYear();
   last_added++;
   updateTimeline();
-  currentYear.innerHTML = months[parseInt(year.slice(-4).substring(0,2))]+" " + year.slice(-2)+", " +year.substring(0,4);
+  currentYear.innerHTML = convertToDate(year);
 
   var time = 1000-(speed*9)-Math.pow(3,last_added);
     if(time < 0){
@@ -138,6 +138,8 @@ var time_lock = false;
 $_timeline.click(function(e){
     var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
     year = years[Math.floor(years.length * x)];
+    currentYear.innerHTML = convertToDate(year);
+
     updateTimeline();
 });
 
