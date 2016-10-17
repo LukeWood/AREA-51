@@ -48,7 +48,7 @@ function UFOs(container){
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
 	}
-	
+
 	function initBackground(){
 		var loader = new THREE.TextureLoader();
 
@@ -79,7 +79,7 @@ function UFOs(container){
 
 	var counter = 0;
 	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
-	var ufo_geo2 = new THREE.SphereGeometry(13,32,32);	
+	var ufo_geo2 = new THREE.SphereGeometry(13,32,32);
 	var ufo_material = new THREE.MeshBasicMaterial({color: 0x0099ff,opacity:.6});
 	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x0000ff,opacity:.6});
 
@@ -95,22 +95,38 @@ function UFOs(container){
 		ufo.position.set(-928/2 +x,592/2 -y,400);
 		animateUFO(ufo);
 	}
-
-	function animateUFO(ufo){
-		ufo.ival = setInterval(function(){
-			ufo.position.z-=3;
-			if(ufo.position.z <=75)
-			{
-				clearInterval(ufo.ival);
-				setTimeout(function(){remove(ufo);},300);
-			}
-		},20);
-	}
-	
 	//Adds a ufo at a certain percentage of the way across the screen
 	function addUFOPercent(x,y){
 		addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
+
+	function animateUFO(ufo){
+		ufo.ival = setInterval(function(){
+			ufo.position.z-=3;
+			if(ufo.position.z <=130)
+			{
+				clearInterval(ufo.ival);
+				setTimeout(function(){castBeam(ufo);},300);
+			}
+		},20);
+	}
+
+	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+	function castBeam(ufo){
+		clearInterval(ufo.ival);
+		var disk = new THREE.Mesh(diskGeo,diskMaterial);
+		map.add(disk);
+	  disk.position.copy(ufo.position);
+		ufo.ival = setInterval(function(){
+				disk.position.z-=3;
+				if(disk.position.z <= 10){
+					clearInterval(ufo.ival);
+					setTimeout(function(){remove(ufo);},300);
+				}
+		},20);
+	}
+
 
 	function remove(ufo){
 		clearInterval(ufo.ival);
