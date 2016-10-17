@@ -163,4 +163,5 @@ $("#slider").mouseup(function(){
 });
 $('#slider').change(function(){
   speed = document.getElementById("slider").value;
+  map.setSpeed(speed+10);
 });

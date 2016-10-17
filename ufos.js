@@ -9,7 +9,10 @@ function UFOs(container){
 	var HEIGHT = window.innerHeight;
 
 	var MAXWIDTH = 928, MAXHEIGHT = 592;
-
+	var speed = 80;
+	this.setSpeed = function(spd){
+		speed = spd;
+	}
 	//SECTION INITIALIZATION
 	function init(container) {
 		scene = new THREE.Scene();
@@ -93,40 +96,56 @@ function UFOs(container){
 		ufo.name = counter.toString();
 		map.add(ufo);
 		ufo.position.set(-928/2 +x,592/2 -y,400);
-		animateUFO(ufo);
+		loopWrapper(animateUFO.bind(ufo));
 	}
 	//Adds a ufo at a certain percentage of the way across the screen
 	function addUFOPercent(x,y){
 		addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
 
-	function animateUFO(ufo){
-		ufo.ival = setInterval(function(){
-			ufo.position.z-=3;
-			if(ufo.position.z <=130)
-			{
-				clearInterval(ufo.ival);
-				setTimeout(function(){castBeam(ufo);},300);
+	function loopWrapper(callback){
+			if(callback()){
+					setTimeout(function(){loopWrapper(callback);},Math.floor(20*((110-speed)/110)));
 			}
-		},20);
+	}
+
+	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
+	function animateUFO(){
+
+		this.position.z-=3;
+
+		if(this.position.z<=130){
+				this.disk = new THREE.Mesh(diskGeo,diskMaterial);
+				this.disk.position.copy(this.position);
+
+				map.add(this.disk);
+				loopWrapper(castBeam.bind(this));
+				return false;
+		}
+		return true;
+
 	}
 
 	//cast stars
-	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
-	function castBeam(ufo){
-		clearInterval(ufo.ival);
-		var disk = new THREE.Mesh(diskGeo,diskMaterial);
-		map.add(disk);
-	  disk.position.copy(ufo.position);
 
-		ufo.ival = setInterval(function(){
-				disk.position.z-=2;
-				if(disk.position.z <= 3){
-					clearInterval(ufo.ival);
-					setTimeout(function(){remove(ufo);},300);
+	function castBeam(){
+				this.disk.position.z-=2;
+				if(this.disk.position.z <= 3){
+						var fun = remove.bind(this);
+						setTimeout(function(){loopWrapper(fun);},Math.floor(200));
+						return false;
 				}
-		},20);
+				return true;
+	}
+
+	function remove(){
+				this.position.z+=5;
+				if(this.position.z >=500){
+					map.remove(this);
+					return false;
+				}
+				return true;
 	}
 
 
@@ -142,17 +161,6 @@ function UFOs(container){
 		}
 	}
 	this.resetStars = resetStars;
-
-	function remove(ufo){
-		clearInterval(ufo.ival);
-		ufo.ival2 = setInterval(function(){
-			ufo.position.z+=5;
-			if(ufo.position.z >=500){
-				clearInterval(ufo.ival2);
-				map.remove(ufo);
-			}
-		},30);
-	}
 
 	function render(){
                 renderer.render(scene, camera);
