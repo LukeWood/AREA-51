@@ -240,8 +240,8 @@ function UFOs(container){
 	    //                altKey, shiftKey, metaKey, button, relatedTarget);
 	    var simulatedEvent = document.createEvent("MouseEvent");
 	    simulatedEvent.initMouseEvent(type, true, true, window, 1,
-	                                  first.screenX, first.screenY,
-	                                  first.clientX, first.clientY, false,
+	                                  first.screenX | 0, first.screenY | 0,
+	                                  first.clientX | 0, first.clientY | 0, false,
 	                                  false, false, false, 0/*left*/, null);
 
 	    first.target.dispatchEvent(simulatedEvent);
