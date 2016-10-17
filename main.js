@@ -123,7 +123,7 @@ $(window).resize(function(){
   map.resize();
 });
 
-$("#restart").click(function(){
+$("#restart").mousedown(function(){
 	year = years[0];
   map.resetStars();
 });

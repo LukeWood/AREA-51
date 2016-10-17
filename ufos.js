@@ -208,8 +208,8 @@ function UFOs(container){
 	}
 
   function addMouseHandler(canvas) {
-		document.addEventListener("touchstart", touchHandler, true);
-		document.addEventListener("touchmove", touchHandler, true);
+				document.addEventListener("touchstart", touchHandler, true);
+				document.addEventListener("touchmove", touchHandler, true);
 		    document.addEventListener("touchend", touchHandler, true);
 		    document.addEventListener("touchcancel", touchHandler, true);
 				canvas.addEventListener('mousemove', function (e) {
@@ -242,7 +242,7 @@ function UFOs(container){
 	    simulatedEvent.initMouseEvent(type, true, true, window, 1,
 	                                  first.screenX | 0, first.screenY | 0,
 	                                  first.clientX | 0, first.clientY | 0, false,
-	                                  false, false, false, 0/*left*/, null);
+	                                  false, false, false, 0/*left*/, canvas);
 
 	    first.target.dispatchEvent(simulatedEvent);
 	    event.preventDefault();
