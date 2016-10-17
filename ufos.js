@@ -98,6 +98,7 @@ function UFOs(container){
 		ufo.position.set(-928/2 +x,592/2 -y,400);
 		loopWrapper(animateUFO.bind(ufo));
 	}
+
 	//Adds a ufo at a certain percentage of the way across the screen
 	function addUFOPercent(x,y){
 		addUFO(x*MAXWIDTH, y*MAXHEIGHT);
@@ -151,7 +152,7 @@ function UFOs(container){
 
 	function resetStars(){
 		//this clears nested children too, kind of a funky behavior but just had to deal with it.
-		for(var i = 0; i < 5; i++){
+		for(var i = 0; i < 10; i++){
 			map.children.forEach(function(star){
 				if(star.ival){
 						clearInterval(star.ival);
@@ -203,7 +204,7 @@ function UFOs(container){
 		mouseDown = true;
 	}
 
-    	function addMouseHandler(canvas) {
+  function addMouseHandler(canvas) {
     		canvas.addEventListener('mousemove', function (e) {
 		onMouseMove(e);
 	    }, false);
