@@ -118,7 +118,7 @@ var timeline = document.getElementById("timeline");
 
 var ctx = timeline.getContext("2d");
 function updateTimeline(){
-  ctx.fillStyle = "#FF0000";
+  ctx.fillStyle = "#333333";
   ctx.fillRect(0,0,timeline.width,timeline.height);
   ctx.fillStyle="#0000FF";
   ctx.fillRect(0,0,timeline.width*(parseInt(year)-year_min)/year_span,timeline.height);
