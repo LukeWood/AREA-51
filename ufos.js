@@ -119,7 +119,7 @@ function UFOs(container){
 		var disk = new THREE.Mesh(diskGeo,diskMaterial);
 		map.add(disk);
 	  disk.position.copy(ufo.position);
-	
+
 		ufo.ival = setInterval(function(){
 				disk.position.z-=2;
 				if(disk.position.z <= 3){
@@ -131,12 +131,17 @@ function UFOs(container){
 
 
 	function resetStars(){
+		for(var i = 0; i < 5; i++){
 			map.children.forEach(function(star){
+				if(star.ival){
+						clearInterval(star.ival);
+				}
 					map.remove(star);
 			});
-
+		}
 	}
 	this.resetStars = resetStars;
+
 	function remove(ufo){
 		clearInterval(ufo.ival);
 		ufo.ival2 = setInterval(function(){

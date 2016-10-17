@@ -130,11 +130,9 @@ function updateTimeline(){
   ctx.fillStyle = "#333333";
   ctx.fillRect(0,0,timeline.width,timeline.height);
   ctx.fillStyle="#0000FF";
-  percentDone = years.indexOf(year) > -1 ? years.indexOf(year) : percentDone;
-  percentDone = percentDone/years.length;
+  percentDone = years.indexOf(year) > -1 ? years.indexOf(year)/years.length : percentDone;
   ctx.fillRect(0,0,timeline.width*percentDone,timeline.height);
   time_lock = false;
-
 }
 document.getElementById("slider").value = 50;
 $("#slider").mousedown(function(){
