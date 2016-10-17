@@ -112,7 +112,7 @@ function UFOs(container){
 	}
 
 	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.4});
 	function castBeam(ufo){
 		clearInterval(ufo.ival);
 		var disk = new THREE.Mesh(diskGeo,diskMaterial);
