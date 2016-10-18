@@ -152,6 +152,7 @@ $_timeline.mousedown(function(e){
   timeline.mousedown = true;
 });
 $_timeline.mouseup(function(e){
+  map.resetStars();
   timeline.mousedown = false;
 });
 

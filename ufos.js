@@ -10,7 +10,7 @@ function UFOs(container, options){
 	var HEIGHT = window.innerHeight;
 	//These are the map dimensions
 	var MAXWIDTH = 928, MAXHEIGHT = 592;
-
+	var cancelled = false;
 	//Variables required to create UFOs
 	var counter = 0;
 	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
@@ -115,6 +115,9 @@ function UFOs(container, options){
 
 	//loops for animation until the function returns false.
 	function loopWrapper(callback){
+			if(cancelled){
+					return;
+			}
 			if(callback()){
 					setTimeout(function(){loopWrapper(callback);},Math.floor(20*((150-(speed))/150)));
 			}
@@ -165,6 +168,7 @@ function UFOs(container, options){
 		//this clears nested children too, kind of a funky behavior but just had to deal with it.
 		//Threejs struggles with removing objects.  Sometimes you have to try a few times to get it to work.
 		//This probably has to do with the fact that these objects still exist in the event loop due to my animation implementation.
+		cancelled = true;
 		for(var i = 0; i < 10; i++){
 			map.children.forEach(function(star){
 				if(star.ival){
@@ -173,6 +177,7 @@ function UFOs(container, options){
 					map.remove(star);
 			});
 		}
+		setTimeout(function(){cancelled = false},500);
 	}
 
 	function render(){
@@ -192,32 +197,32 @@ function UFOs(container, options){
 	//Mouse handlers
 	//This section handles mouse events for rotation.  I kept the variables down here so that they are easier to keep track of.
 
-		var mouseDown = false,mouseX,mouseY;
-		// kept all of these at the end so they're out of the way.
-		function onMouseMove(e) {
-	        e.preventDefault();
+	var mouseDown = false,mouseX,mouseY;
+	// kept all of these at the end so they're out of the way.
+	function onMouseMove(e) {
+	  e.preventDefault();
 
-	        var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
-	       	mouseX = e.clientX;
-	      	mouseY = e.clientY;
+	  var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
+	  mouseX = e.clientX;
+	  mouseY = e.clientY;
 
 
-	        if (mouseDown) {
-							rotateScene(deltaX);
-							moveScene(deltaY);
-	        }
+	  if (mouseDown) {
+			rotateScene(deltaX);
+			moveScene(deltaY);
 	    }
+	}
 
-		function onMouseUp(evt) {
+	function onMouseUp(evt) {
 				evt.preventDefault();
 				renderer.domElement.style.cursor = "grab";
 				mouseDown = false;
-	  }
+	}
 
 		function onMouseDown(evt){
-			evt.preventDefault();
-			renderer.domElement.style.cursor = "grabbing";
-			mouseDown = true;
+				evt.preventDefault();
+				renderer.domElement.style.cursor = "grabbing";
+				mouseDown = true;
 		}
 
 		var ival;//interval val
@@ -225,30 +230,30 @@ function UFOs(container, options){
 				canvas.addEventListener("touchstart", function(e){
 						var dx = e.touches[0].clientX;
 						if(dx > window.innerWidth/2){
-										dx = 5;
+							dx = 5;
 						}
 						else{
-										dx = -5;
+							dx = -5;
 						}
 						ival = setInterval(function(){rotateScene(dx,0)},20);
-									e.preventDefault();
+						e.preventDefault();
 				}, true);
+
 				canvas.addEventListener("touchmove",function(e){
 						e.preventDefault();
 				});
+
 			  canvas.addEventListener("touchend", function(e){
 						clearInterval(ival);
 						e.preventDefault();
 				}, true);
-					canvas.addEventListener('mousemove', function (e) {
-							onMouseMove(e);
-		    }, false);
-		    canvas.addEventListener('mousedown', function (e) {
-						onMouseDown(e);
-		    }, false);
-		    canvas.addEventListener('mouseup', function (e) {
-						onMouseUp(e);
-		    }, false);
+
+				canvas.addEventListener('mousemove',onMouseMove,false);
+
+		    canvas.addEventListener('mousedown', onMouseDown,false);
+
+		    canvas.addEventListener('mouseup', onMouseUp,false);
+
 		}
 		function rotateScene(deltaX){
 				map.rotation.z-= deltaX/100;
