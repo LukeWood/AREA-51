@@ -85,6 +85,9 @@ function UFOs(container, options){
 	// END INITIALIZATION
 
 	function addUFO(x,y){
+		if(cancelled){
+			return;
+		}
 		counter++;
       		var ufo = new THREE.Mesh(ufo_geo1,ufo_material);
 		var sub_ufo = new THREE.Mesh(ufo_geo2,ufo_material2);
@@ -168,8 +171,8 @@ function UFOs(container, options){
 			map.children.forEach(function(star){
 							map.remove(star);
 			});
-			cancelled = false;
 		},500);
+		cancelled = false;
 
 	}
 
