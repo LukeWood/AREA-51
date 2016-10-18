@@ -18,6 +18,8 @@ function UFOs(container, options){
 	var ufo_material = new THREE.MeshBasicMaterial({color: 0x666666,opacity:.6});
 	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x444444,opacity:.6});
 
+	var ival;//interval val for touch listeners
+
 	//These handle the stars
 	var diskGeo = new THREE.CircleGeometry(10,40,40,40);
 	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
@@ -225,7 +227,6 @@ function UFOs(container, options){
 				mouseDown = true;
 		}
 
-		var ival;//interval val
 	  function addMouseHandler(canvas) {
 				canvas.addEventListener("touchstart", function(e){
 						var dx = e.touches[0].clientX;
