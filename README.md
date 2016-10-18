@@ -1,5 +1,9 @@
 # UFO-Visualization
-I am graphing the United States UFO sightings. 
+A visualization of the UFO sightings in the United States.
 
-Original Dataset Before any Parsing:
-https://raw.githubusercontent.com/johnmyleswhite/ML_for_Hackers/master/01-Introduction/data/ufo/ufo_awesome.tsv
+# Employers
+Please see ufos.js as a code sample.  This javascript file displays my knowledge of javascript practices and functionality.
+
+# Dataset
+
+Original Dataset Before Parsing:https://raw.githubusercontent.com/johnmyleswhite/ML_for_Hackers/master/01-Introduction/data/ufo/ufo_awesome.tsv
