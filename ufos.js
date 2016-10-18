@@ -207,10 +207,14 @@ function UFOs(container){
 		mouseDown = true;
 	}
 
+	var ival;
   function addMouseHandler(canvas) {
-				canvas.addEventListener("touchstart", onMouseDown, true);
-				canvas.addEventListener("touchmove", onMouseMove, true);
-		    canvas.addEventListener("touchend", onMouseUp, true);
+				canvas.addEventListener("touchstart", function(){
+						ival = setInterval(function(){rotateScene(20,0)},20);
+				}, true);
+		    canvas.addEventListener("touchend", function(){
+					clearInterval(ival);
+				}, true);
 				canvas.addEventListener('mousemove', function (e) {
 		onMouseMove(e);
 	    }, false);
@@ -221,7 +225,6 @@ function UFOs(container){
 		onMouseUp(e);
 	    }, false);
 	}
-
 
 	function rotateScene(deltaX,deltaY){
 			map.rotation.z-= deltaX/100;
