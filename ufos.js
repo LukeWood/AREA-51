@@ -192,72 +192,71 @@ function UFOs(container, options){
 	//Mouse handlers
 	//This section handles mouse events for rotation.  I kept the variables down here so that they are easier to keep track of.
 
-	var mouseDown = false,mouseX,mouseY;
-	// kept all of these at the end so they're out of the way.
-	function onMouseMove(e) {
+		var mouseDown = false,mouseX,mouseY;
+		// kept all of these at the end so they're out of the way.
+		function onMouseMove(e) {
+	        e.preventDefault();
 
-        	e.preventDefault();
-
-        	var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
-       		mouseX = e.clientX;
-        	mouseY = e.clientY;
+	        var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
+	       	mouseX = e.clientX;
+	      	mouseY = e.clientY;
 
 
-        if (mouseDown) {
-					rotateScene(deltaX);
-					moveScene(deltaY);
-        }
-    }
+	        if (mouseDown) {
+							rotateScene(deltaX);
+							moveScene(deltaY);
+	        }
+	    }
 
-	function onMouseUp(evt) {
-		evt.preventDefault();
-		renderer.domElement.style.cursor = "grab";
-		mouseDown = false;
-   	}
+		function onMouseUp(evt) {
+				evt.preventDefault();
+				renderer.domElement.style.cursor = "grab";
+				mouseDown = false;
+	  }
 
-	function onMouseDown(evt){
-		evt.preventDefault();
-		renderer.domElement.style.cursor = "grabbing";
-		mouseDown = true;
-	}
+		function onMouseDown(evt){
+			evt.preventDefault();
+			renderer.domElement.style.cursor = "grabbing";
+			mouseDown = true;
+		}
 
-	var ival;
-  function addMouseHandler(canvas) {
+		var ival;//interval val
+	  function addMouseHandler(canvas) {
 				canvas.addEventListener("touchstart", function(e){
 						var dx = e.touches[0].clientX;
 						if(dx > window.innerWidth/2){
-							dx = 5;
+										dx = 5;
 						}
 						else{
-							dx = -5;
+										dx = -5;
 						}
 						ival = setInterval(function(){rotateScene(dx,0)},20);
-						e.preventDefault();
+									e.preventDefault();
 				}, true);
 				canvas.addEventListener("touchmove",function(e){
-					e.preventDefault();
+						e.preventDefault();
 				});
-		    canvas.addEventListener("touchend", function(e){
-					clearInterval(ival);
-					e.preventDefault();
+			  canvas.addEventListener("touchend", function(e){
+						clearInterval(ival);
+						e.preventDefault();
 				}, true);
-				canvas.addEventListener('mousemove', function (e) {
-		onMouseMove(e);
-	    }, false);
-	    canvas.addEventListener('mousedown', function (e) {
-		onMouseDown(e);
-	    }, false);
-	    canvas.addEventListener('mouseup', function (e) {
-		onMouseUp(e);
-	    }, false);
-	}
-	function rotateScene(deltaX){
-			map.rotation.z-= deltaX/100;
-	}
-	function moveScene(deltaY) {
-		if(camera.position.z > 100 || deltaY > 0){
-			camera.position.z += deltaY;
-			camera.rotation.x-=deltaY/360;
+					canvas.addEventListener('mousemove', function (e) {
+							onMouseMove(e);
+		    }, false);
+		    canvas.addEventListener('mousedown', function (e) {
+						onMouseDown(e);
+		    }, false);
+		    canvas.addEventListener('mouseup', function (e) {
+						onMouseUp(e);
+		    }, false);
 		}
-	}
+		function rotateScene(deltaX){
+				map.rotation.z-= deltaX/100;
+		}
+		function moveScene(deltaY) {
+				if(camera.position.z > 100 || deltaY > 0){
+					camera.position.z += deltaY;
+					camera.rotation.x-=deltaY/360;
+				}
+		}
 }
