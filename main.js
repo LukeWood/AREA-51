@@ -144,7 +144,7 @@ $_timeline.click(function(e){
 });
 
 
-$("#plus").click(function(){
+/*$("#plus").click(function(){
   var val = parseInt(speed_controller.value);
   val +=10;
   val = val <= 100 ? val : 100;
@@ -158,7 +158,7 @@ $("#minus").click(function(){
   val = val >= 0 ? val : 0;
   speed_controller.value = val.toString();
   $(speed_controller).trigger("change");
-});
+});*/
 
 function updateTimeline(){
   if(time_lock)
