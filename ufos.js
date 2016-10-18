@@ -22,7 +22,7 @@ function UFOs(container, options){
 
 	//These handle the stars
 	var diskGeo = new THREE.CircleGeometry(7,40,40,40);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.2});
 
 	//cant just use this.speed because of the calls to bind later on.
 	var speed = 50;
