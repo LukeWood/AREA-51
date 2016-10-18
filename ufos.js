@@ -21,7 +21,7 @@ function UFOs(container, options){
 	var ival;//interval val for touch listeners
 
 	//These handle the stars
-	var diskGeo = new THREE.CircleGeometry(10,40,40,40);
+	var diskGeo = new THREE.CircleGeometry(7,40,40,40);
 	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
 
 	//cant just use this.speed because of the calls to bind later on.
