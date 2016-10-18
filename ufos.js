@@ -15,11 +15,11 @@ function UFOs(container, options){
 	var counter = 0;
 	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
 	var ufo_geo2 = new THREE.SphereGeometry(13,32,32);
-	var ufo_material = new THREE.MeshBasicMaterial({color: 0x0099ff,opacity:.6});
-	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x0000ff,opacity:.6});
+	var ufo_material = new THREE.MeshBasicMaterial({color: 0x666666,opacity:.6});
+	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x444444,opacity:.6});
 
 	//These handle the stars
-	var diskGeo = new THREE.CircleGeometry(15,20,40,50);
+	var diskGeo = new THREE.CircleGeometry(10,40,40,40);
 	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.7});
 
 	//cant just use this.speed because of the calls to bind later on.
