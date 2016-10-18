@@ -228,7 +228,7 @@ function UFOs(container){
 					e.preventDefault();
 				}, true);
 				canvas.addEventListener('mousemove', function (e) {
-		(e);
+		onMouseMove(e);
 	    }, false);
 	    canvas.addEventListener('mousedown', function (e) {
 		onMouseDown(e);
