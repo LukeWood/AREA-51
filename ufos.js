@@ -167,11 +167,6 @@ function UFOs(container, options){
 					map.remove(star);
 			});
 		}
-		setTimeout(function(){
-			map.children.forEach(function(star){
-							map.remove(star);
-			});
-		},500);
 		cancelled = false;
 
 	}
