@@ -218,12 +218,17 @@ function UFOs(container){
 							dx = -5;
 						}
 						ival = setInterval(function(){rotateScene(dx,0)},20);
+						e.preventDefault();
 				}, true);
-		    canvas.addEventListener("touchend", function(){
+				canvas.addEventListener("touchmove",function(e){
+					e.preventDefault();
+				});
+		    canvas.addEventListener("touchend", function(e){
 					clearInterval(ival);
+					e.preventDefault();
 				}, true);
 				canvas.addEventListener('mousemove', function (e) {
-		onMouseMove(e);
+		(e);
 	    }, false);
 	    canvas.addEventListener('mousedown', function (e) {
 		onMouseDown(e);

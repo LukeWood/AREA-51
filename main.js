@@ -10,7 +10,7 @@ var speed = 0;
 var last_added = 0;
 
 var currentYear = document.getElementById("currentYear");
-var speed_controller = document.getElementById("speedController");
+var speed_controller = document.getElementById("slider");
 
 var ready = false;
 
@@ -143,13 +143,29 @@ $_timeline.click(function(e){
     updateTimeline();
 });
 
+
+$("#plus").click(function(){
+  var val = parseInt(speed_controller.value);
+  val +=10;
+  val = val <= 100 ? val : 100;
+  speed_controller.value = val.toString();
+  $(speed_controller).trigger("change");
+});
+
+$("#minus").click(function(){
+  var val = parseInt(speed_controller.value);
+  val -=10;
+  val = val >= 0 ? val : 0;
+  speed_controller.value = val.toString();
+  $(speed_controller).trigger("change");
+});
+
 function updateTimeline(){
   if(time_lock)
   {return;}
   time_lock = true;
   ctx.fillStyle = "#333333";
   ctx.fillRect(0,0,timeline.width,timeline.height);
-
   ctx.fillStyle="#0000FF";
 
   percentDone = years.indexOf(year) > -1 ? years.indexOf(year)/years.length : percentDone;
