@@ -190,8 +190,8 @@ function UFOs(container){
 
 
         if (mouseDown) {
-	//	rotateScene(deltaX,deltaY);
-		moveScene(deltaX, deltaY);
+		rotateScene(deltaX,deltaY);
+	//	moveScene(deltaX, deltaY);
         }
     }
 
