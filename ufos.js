@@ -36,7 +36,6 @@ function UFOs(container, options){
 			initRenderer();
 		renderer = window.renderer;
 		initMap();
-		//initBackground();
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
 		addMouseHandler(renderer.domElement);
@@ -62,20 +61,9 @@ function UFOs(container, options){
 	function initRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setClearColor(0x000000);
-		//renderer.shadowMap.enabled = true;
-		//renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
-	}
-
-	function initBackground(){
-		var loader = new THREE.TextureLoader();
-
-		var texture = loader.load("img/space.jpg");
-		var material = new THREE.MeshBasicMaterial({map:texture});
-		material.side = THREE.BackSide;
-		var mesh = new THREE.Mesh(new THREE.SphereGeometry(700,32,32), material);
-		scene.add(mesh);
 	}
 
 	function initMap() {
