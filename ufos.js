@@ -209,8 +209,15 @@ function UFOs(container){
 
 	var ival;
   function addMouseHandler(canvas) {
-				canvas.addEventListener("touchstart", function(){
-						ival = setInterval(function(){rotateScene(20,0)},20);
+				canvas.addEventListener("touchstart", function(e){
+						var dx = e.touches[0].clientX;
+						if(dx > window.innerWidth/2){
+							dx = 5;
+						}
+						else{
+							dx = -1
+						}
+						ival = setInterval(function(){rotateScene(dx,0)},20);
 				}, true);
 		    canvas.addEventListener("touchend", function(){
 					clearInterval(ival);
