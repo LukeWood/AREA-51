@@ -243,6 +243,7 @@ function UFOs(container){
 	                                  first.screenX, first.screenY,
 	                                  first.clientX, first.clientY, false,
 	                                  false, false, false, 0/*left*/, null);
+										alert(simulatedEvent);
 
 	    first.target.dispatchEvent(simulatedEvent);
 	    event.preventDefault();
