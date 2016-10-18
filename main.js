@@ -135,6 +135,13 @@ var ctx = timeline.getContext("2d");
 var percentDone;
 var time_lock = false;
 
+$_timeline.mousemove(function(e){
+    var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
+    year = years[Math.floor(years.length * x)];
+    currentYear.innerHTML = convertToDate(year);
+
+    updateTimeline();
+  });
 $_timeline.click(function(e){
     var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
     year = years[Math.floor(years.length * x)];
