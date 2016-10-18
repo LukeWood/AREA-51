@@ -143,7 +143,12 @@ $_timeline.mousemove(function(e){
     updateTimeline();
   }
   });
-$_timeline.mousedown(function(e){timeline.mousedown = true;});
+$_timeline.mousedown(function(e){
+  var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
+  year = years[Math.floor(years.length * x)];
+  currentYear.innerHTML = convertToDate(year);
+  updateTimeline();
+  timeline.mousedown = true;});
 $_timeline.mouseup(function(e){timeline.mousedown = false;});
 
 $_timeline.click(function(e){
