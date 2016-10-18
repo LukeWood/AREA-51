@@ -190,8 +190,8 @@ function UFOs(container){
 
 
         if (mouseDown) {
-		rotateScene(deltaX,deltaY);
-	//	moveScene(deltaX, deltaY);
+					rotateScene(deltaX,deltaY);
+					moveScene(deltaX, deltaY);
         }
     }
 
@@ -208,10 +208,10 @@ function UFOs(container){
 	}
 
   function addMouseHandler(canvas) {
-				document.addEventListener("touchstart", touchHandler, true);
-				document.addEventListener("touchmove", touchHandler, true);
-		    document.addEventListener("touchend", touchHandler, true);
-		    document.addEventListener("touchcancel", touchHandler, true);
+				canvas.addEventListener("touchstart", touchHandler, true);
+				canvas.addEventListener("touchmove", touchHandler, true);
+		    canvas.addEventListener("touchend", touchHandler, true);
+		    canvas.addEventListener("touchcancel", touchHandler, true);
 				canvas.addEventListener('mousemove', function (e) {
 		onMouseMove(e);
 	    }, false);
@@ -240,8 +240,8 @@ function UFOs(container){
 	    //                altKey, shiftKey, metaKey, button, relatedTarget);
 	    var simulatedEvent = document.createEvent("MouseEvent");
 	    simulatedEvent.initMouseEvent(type, true, true, window, 1,
-	                                  first.screenX | 0, first.screenY | 0,
-	                                  first.clientX | 0, first.clientY | 0, false,
+	                                  first.screenX, first.screenY,
+	                                  first.clientX, first.clientY, false,
 	                                  false, false, false, 0/*left*/, null);
 
 	    first.target.dispatchEvent(simulatedEvent);
