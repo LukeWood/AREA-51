@@ -215,7 +215,7 @@ function UFOs(container){
 							dx = 5;
 						}
 						else{
-							dx = -1
+							dx = -5;
 						}
 						ival = setInterval(function(){rotateScene(dx,0)},20);
 				}, true);
