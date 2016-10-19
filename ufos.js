@@ -271,17 +271,9 @@ function UFOs(container, options){
 				}, true);
 
 				function touchHandler(){
-					if(touchX > WIDTH/2){
-						rotateScene(3);
-					}
-					else{
-						rotateScene(-3);
-					}
-					if(touchY > HEIGHT/2){
-						moveScene(-5);
-					}
-					else{
-						moveScene(5);
+						rotateScene(5 * (touchX - (WIDTH/2)));
+
+						moveScene(-5 * (touchY - HEIGHT/2));
 					}
 				}
 
