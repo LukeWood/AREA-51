@@ -28,13 +28,21 @@ $.getJSON("used_data/years.json",function(data){
     document.getElementById("lastYear").innerHTML = convertToDate(years[years.length-1]);
     ready = true;
 });
-
+//
 $("#cover").mousedown(function(){
     if(ready){
     updateTimeline();
     $("#cover").fadeOut();
     setTimeout(update,500);
     $("#cover").unbind("mousedown");
+    }
+    else{
+      $(window).onload(function(){
+        updateTimeline();
+        $("#cover").fadeOut();
+        setTimeout(update,500);
+        $("#cover").unbind("mousedown");
+      });
     }
 });
 

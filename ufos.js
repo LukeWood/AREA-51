@@ -38,7 +38,7 @@ function UFOs(container, options){
 		initMap();
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
-		addMouseHandler(renderer.domElement);
+		setTimeout(function(){addMouseHandler(renderer.domElement);},1000);
 		render();
 	}
 
@@ -53,14 +53,16 @@ function UFOs(container, options){
 
 	function initCamera() {
 		camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT, 1, 4000);
-		camera.position.set(0,-500,500);
+		camera.position.set(0,-200,600);
 		camera.lookAt(scene.position);
 	}
 
 	//Prevents excessive WebGLRenderer instances
 	function initRenderer() {
+
 		renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setClearColor(0x000000);
+		renderer.setPixelRatio( window.devicePixelRatio );
 
 		renderer.setSize(WIDTH, HEIGHT);
 		window.renderer = renderer;
@@ -128,7 +130,7 @@ function UFOs(container, options){
 				var tempJson = {
 						disk:disk,
 						ufo:this,
-						counter:0
+						counter:1000
 				};
 
 				loopWrapper(castBeam.bind(tempJson));
@@ -140,11 +142,12 @@ function UFOs(container, options){
 	//casts stars onto the map.
 	function castBeam(){
 				this.counter++;
-				if(this.counter > 4){
+				if(this.counter > 5){
 						var disk = new THREE.Mesh(diskGeo,diskMaterial);
 						disk.position.copy(this.ufo.position);
 						map.add(disk);
 						loopWrapper(castDown.bind(disk));
+						this.counter = 0;
 				}
 
 				this.disk.position.z-=2;
@@ -166,7 +169,7 @@ function UFOs(container, options){
 	//fly away and remove.
 	function remove(){
 				this.position.z+=5;
-				if(this.position.z >=500){
+				if(this.position.z >=700){
 					map.remove(this);
 					return false;
 				}
@@ -266,8 +269,9 @@ function UFOs(container, options){
 				map.rotation.z-= deltaX/100;
 		}
 		function moveScene(deltaY) {
-				if(camera.position.z > 100 || deltaY > 0){
+				if((camera.position.z > 300 || deltaY > 0) && (camera.position.z < 700 || deltaY < 0)){
 					camera.position.z += deltaY;
+					camera.position.y += deltaY*1.5;
 					camera.rotation.x-=deltaY/360;
 				}
 		}
