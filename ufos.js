@@ -250,26 +250,40 @@ function UFOs(container, options){
 				mouseDown = true;
 		}
 
+			var touchX, touchY;
 	  function addMouseHandler(canvas) {
 				canvas.addEventListener("touchstart", function(e){
-						var dx = e.touches[0].clientX;
-						if(dx > window.innerWidth/2){
-							dx = 5;
-						}
-						else{
-							dx = -5;
-						}
-						ival = setInterval(function(){rotateScene(dx,0)},20);
+						touchX= e.touches[0].clientX;
+						touchY = e.touches[0].clientY;
+						ival = setInterval(function(){touchHandler()},20);
 						e.preventDefault();
 				}, true);
 
 				canvas.addEventListener("touchmove",function(e){
+						touchX= e.touches[0].clientX;
+						touchY = e.touches[0].clientY;
 						e.preventDefault();
 				});
+
 			  canvas.addEventListener("touchend", function(e){
 						clearInterval(ival);
 						e.preventDefault();
 				}, true);
+
+				function touchHandler(){
+					if(touchX > WIDTH/2){
+						rotateScene(3);
+					}
+					else{
+						rotateScene(-3);
+					}
+					if(touchY > HEIGHT/2){
+						moveScene(-5);
+					}
+					else{
+						moveScene(5);
+					}
+				}
 
 				canvas.addEventListener('mousemove',onMouseMove,false);
 
