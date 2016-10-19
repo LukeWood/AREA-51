@@ -123,7 +123,7 @@ function UFOs(container, options){
 		this.position.z-=3;
 
 		if(this.position.z<=130){
-				var disk = new THREE.Mesh(diskGeo,diskMaterial);
+				var disk = new THREE.Mesh(diskGeo,diskMaterial.clone());
 				disk.position.copy(this.position);
 
 				map.add(disk);
@@ -154,6 +154,7 @@ function UFOs(container, options){
 				if(this.disk.position.z <= 3){
 						var fun = remove.bind(this.ufo);
 						setTimeout(function(){loopWrapper(fun);},Math.floor(200*(150-speed)/150));
+						loopWrapper(fadeOut.bind(this.disk));
 						return false;
 				}
 				return true;
@@ -166,6 +167,19 @@ function UFOs(container, options){
 			}
 			return true;
 	}
+
+	function fadeOut(){
+
+		if(this.material.opacity <= .01){
+			map.remove(this);
+			return false;
+		}
+		else{
+			this.material.opacity-=.0003;
+		}
+			return true;
+	}
+
 	//fly away and remove.
 	function remove(){
 				this.position.z+=5;
@@ -252,7 +266,6 @@ function UFOs(container, options){
 				canvas.addEventListener("touchmove",function(e){
 						e.preventDefault();
 				});
-
 			  canvas.addEventListener("touchend", function(e){
 						clearInterval(ival);
 						e.preventDefault();
