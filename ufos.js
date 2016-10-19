@@ -250,12 +250,15 @@ function UFOs(container, options){
 				mouseDown = true;
 		}
 
-			var touchX, touchY;
+			var touchX, touchY, touched = false;
 	  function addMouseHandler(canvas) {
 				canvas.addEventListener("touchstart", function(e){
+					if(!touched){
+							setInterval(touchHandler,20);
+							touched = true;
+					}
 						touchX= e.touches[0].clientX;
 						touchY = e.touches[0].clientY;
-						ival = setInterval(function(){touchHandler()},20);
 						e.preventDefault();
 				}, true);
 
@@ -271,9 +274,11 @@ function UFOs(container, options){
 				}, true);
 
 				function touchHandler(){
+					if(touched){
 						rotateScene(5 * (touchX - (WIDTH/2))/(WIDTH/2));
 
 						moveScene(-5 * (touchY - HEIGHT/2)/(HEIGHT/2));
+					}
 					}
 
 				canvas.addEventListener('mousemove',onMouseMove,false);
