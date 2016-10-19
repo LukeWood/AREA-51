@@ -271,9 +271,9 @@ function UFOs(container, options){
 				}, true);
 
 				function touchHandler(){
-						rotateScene(5 * (touchX - (WIDTH/2)));
+						rotateScene(5 * (touchX - (WIDTH/2))/(WIDTH/2));
 
-						moveScene(-5 * (touchY - HEIGHT/2));
+						moveScene(-5 * (touchY - HEIGHT/2)/(HEIGHT/2));
 					}
 
 				canvas.addEventListener('mousemove',onMouseMove,false);
