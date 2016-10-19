@@ -250,13 +250,14 @@ function UFOs(container, options){
 				mouseDown = true;
 		}
 
-			var touchX, touchY, touched = false;
+			var touchX, touchY, touched = false,touched_first = false;
 	  function addMouseHandler(canvas) {
 				canvas.addEventListener("touchstart", function(e){
-					if(!touched){
+					if(!touched_first){
 							setInterval(touchHandler,20);
-							touched = true;
+							touched_first = true;
 					}
+					touched = true;
 						touchX= e.touches[0].clientX;
 						touchY = e.touches[0].clientY;
 						e.preventDefault();
@@ -269,7 +270,7 @@ function UFOs(container, options){
 				});
 
 			  canvas.addEventListener("touchend", function(e){
-						clearInterval(ival);
+						touched = false;
 						e.preventDefault();
 				}, true);
 
