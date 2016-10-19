@@ -275,7 +275,6 @@ function UFOs(container, options){
 
 						moveScene(-5 * (touchY - HEIGHT/2));
 					}
-				}
 
 				canvas.addEventListener('mousemove',onMouseMove,false);
 
