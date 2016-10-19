@@ -22,7 +22,7 @@ function UFOs(container, options){
 
 	//These handle the stars
 	var diskGeo = new THREE.CircleGeometry(7,40,40,40);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.2});
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.35});
 
 	//cant just use this.speed because of the calls to bind later on.
 	var speed = 50;
@@ -127,8 +127,10 @@ function UFOs(container, options){
 				map.add(disk);
 				var tempJson = {
 						disk:disk,
-						ufo:this
+						ufo:this,
+						counter:0
 				};
+
 				loopWrapper(castBeam.bind(tempJson));
 				return false;
 		}
@@ -137,6 +139,14 @@ function UFOs(container, options){
 
 	//casts stars onto the map.
 	function castBeam(){
+				this.counter++;
+				if(this.counter > 4){
+						var disk = new THREE.Mesh(diskGeo,diskMaterial);
+						disk.position.copy(this.ufo.position);
+						map.add(disk);
+						loopWrapper(castDown.bind(disk));
+				}
+
 				this.disk.position.z-=2;
 				if(this.disk.position.z <= 3){
 						var fun = remove.bind(this.ufo);
@@ -145,7 +155,14 @@ function UFOs(container, options){
 				}
 				return true;
 	}
-
+	function castDown(){
+			this.position.z-=2;
+			if(this.position.z <=3){
+				map.remove(this);
+				return false;
+			}
+			return true;
+	}
 	//fly away and remove.
 	function remove(){
 				this.position.z+=5;
