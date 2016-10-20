@@ -7,6 +7,7 @@ var map = new UFOs(document);
 var years, year, year_max, year_min, year_span;
 var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+var update_lock = false;
 //speed that we move through the date, keep track of last time we added something to reduce time between months to prevent large stale periodss
 var speed = 0;
 var last_added = 0;
@@ -86,6 +87,10 @@ function incrementYear(){
 
 //this happens on a timer based on the speed setting.  It also recalls itself recursively through setTimeout.
 function update(){
+  if(update_lock){
+      setTimeout(update,100);
+      return;
+  }
   incrementYear();
   last_added++;
   updateTimeline();
@@ -150,16 +155,17 @@ $_timeline.mousemove(function(e){
 });
 
 $_timeline.mousedown(function(e){
+  update_lock = true;
   var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
   year = years[Math.floor(years.length * x)];
   current_year.innerHTML = convertToDate(year);
   map.resetStars();
-
   updateTimeline();
   timeline.mousedown = true;
 });
 
 $_timeline.mouseup(function(e){
+  update_lock = false;
   map.resetStars();
   timeline.mousedown = false;
 });
