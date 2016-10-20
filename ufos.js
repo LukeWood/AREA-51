@@ -211,7 +211,7 @@ function UFOs(container, options){
 
 	//Call init and define public functions.
 	init(container);
-
+	rotateScene(-50);
 	this.addUFO = addUFO;
 	this.resize = resize;
 	this.addUFOPercent = addUFOPercent;
