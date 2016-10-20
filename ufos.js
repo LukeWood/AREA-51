@@ -197,12 +197,10 @@ function UFOs(container, options){
 		//Threejs struggles with removing objects.  Sometimes you have to try a few times to get it to work.
 		//This probably has to do with the fact that these objects still exist in the event loop due to my animation implementation.
 		cancelled = true;
-		for(var i = 0; i < 10; i++){
-			map.children.forEach(function(star){
-					map.remove(star);
-			});
+		for(var i = map.children.length; i >= 0; i--){
+			map.remove(map.children[i])
 		}
-		cancelled = false;
+		setTimeout(function(){cancelled = false;},Math.floor(40*((150-(speed))/150)));
 
 	}
 
@@ -250,7 +248,7 @@ function UFOs(container, options){
 		}
 
 	var touchX, touchY, touched = false,touched_first = false;
-	
+
 	function addMouseHandler() {
 		this.addEventListener("touchstart", function(e){
 			if(!touched_first){
@@ -280,13 +278,13 @@ function UFOs(container, options){
 				moveScene(-5 * (touchY - HEIGHT/2)/(HEIGHT/2));
 			}
 		}
-		
+
 		//TODO implement zoom
 		function wheelHandler(e){
-			
+
 		}
 		this.addEventListener("wheel",wheelHandler,false);
-		
+
 		this.addEventListener('mousemove',onMouseMove,false);
 
 		this.addEventListener('mousedown', onMouseDown,false);
