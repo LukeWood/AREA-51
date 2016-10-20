@@ -15,8 +15,8 @@ function UFOs(container, options){
 	var counter = 0;
 	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
 	var ufo_geo2 = new THREE.SphereGeometry(13,32,32);
-	var ufo_material = new THREE.MeshBasicMaterial({color: 0x888888,opacity:.6});
-	var ufo_material2 = new THREE.MeshBasicMaterial({color: 0x555555,opacity:.6});
+	var ufo_material = new THREE.MeshPhongMaterial({color: 0xcccccc,reflectivity:.4});
+	var ufo_material2 = new THREE.MeshPhongMaterial({color: 0xcccccc,reflectivity:.4});
 
 	var ival;//interval val for touch listeners
 
