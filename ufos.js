@@ -196,9 +196,6 @@ function UFOs(container, options){
 
 	//This removes all children.
 	function resetStars(){
-		//this clears nested children too, kind of a funky behavior but just had to deal with it.
-		//Threejs struggles with removing objects.  Sometimes you have to try a few times to get it to work.
-		//This probably has to do with the fact that these objects still exist in the event loop due to my animation implementation.
 		cancelled = true;
 		for(var i = map.children.length; i >= 0; i--){
 			map.remove(map.children[i])
@@ -276,7 +273,7 @@ function UFOs(container, options){
 		function wheelHandler(e){
 
 		}
-		
+
 		this.addEventListener("wheel",wheelHandler,false);
 
 		this.addEventListener('mousemove',onMouseMove,false);
