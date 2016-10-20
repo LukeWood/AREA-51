@@ -146,7 +146,7 @@ var percentDone;
 var time_lock = false;
 
 $_timeline.mousemove(function(e){
-  if(timeline.mousedown){
+  if(timeline.mouse_down){
     var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
     year = years[Math.floor(years.length * x)];
     current_year.innerHTML = convertToDate(year);
@@ -161,13 +161,21 @@ $_timeline.mousedown(function(e){
   current_year.innerHTML = convertToDate(year);
   map.resetStars();
   updateTimeline();
-  timeline.mousedown = true;
+  timeline.mouse_down = true;
 });
 
 $_timeline.mouseup(function(e){
   update_lock = false;
   map.resetStars();
-  timeline.mousedown = false;
+  timeline.mouse_down = false;
+});
+
+$_timeline.mouseout(function(e){
+    if(timeline.mouse_down){
+        map.resetStars();
+        update_lock = false;
+        timeline.mouse_down = false;
+    }
 });
 
 $_timeline.click(function(e){
