@@ -1,3 +1,5 @@
+//Main driver, don't import this if you're just working with the map.
+
 //the ufo map itself
 var map = new UFOs(document);
 
@@ -9,26 +11,32 @@ var months = ["January","February","March","April","May","June","July","August",
 var speed = 0;
 var last_added = 0;
 
-var currentYear = document.getElementById("currentYear");
+var current_year = document.getElementById("currentYear");
 var speed_controller = document.getElementById("slider");
+var first_year = document.getElementById("firstYear");
+var last_year = document.getElementById("lastYear");
 
 var ready = false;
 
+//Converts a number to a date in words:
+//19990101 -> January 1, 1999
 function convertToDate(year_t){
         return months[parseInt(year_t.slice(-4).substring(0,2))]+" " + year_t.slice(-2)+", " +year_t.substring(0,4);
 }
 
+//Initialize our years object to the json my python script generated.  This way we don't send out ajax requests for nonexistent json later on.
 $.getJSON("used_data/years.json",function(data){
     years = data;
     year_max = parseInt(years[years.length-1]);
     year_min = parseInt(years[0]);
     year = years[0];
     year_span = year_max-year_min;
-    document.getElementById("firstYear").innerHTML = convertToDate(years[0]);
-    document.getElementById("lastYear").innerHTML = convertToDate(years[years.length-1]);
+    first_year.innerHTML = convertToDate(years[0]);
+    last_year.innerHTML = convertToDate(years[years.length-1]);
     ready = true;
 });
-//
+
+//Remove the cover to from index.html so they can see the visualization
 $("#cover").mousedown(function(){
     if(ready){
     updateTimeline();
@@ -46,8 +54,8 @@ $("#cover").mousedown(function(){
     }
 });
 
+//this increments an integer as if it is incrementing months in the year.
 var days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
-
 function incrementYear(){
     var month = parseInt(year.slice(-4).substring(0,2));
     var day = parseInt(year.slice(-2));
@@ -75,59 +83,46 @@ function incrementYear(){
       map.resetStars();
     }
 }
-//Initialize analysis
-/*
-var analysis = ["In early May 1995 there are almost no sightings.  However, by late May 1995 there are almost daily sightings in New Mexico",
-                "The center of the country has a much higher density of sightings",
-                "As time goes on, UFO sightings appear at an increasingly rapid rate.",
-                "There are many clusters of sightings.  People seem to copy those who live in similar areas to them."];
-var analysisDiv = document.getElementById("analysis");
-var textID = 0;
-analysisDiv.innerHTML = analysis[textID];*/
 
+//this happens on a timer based on the speed setting.  It also recalls itself recursively through setTimeout.
 function update(){
   incrementYear();
   last_added++;
   updateTimeline();
-  currentYear.innerHTML = convertToDate(year);
+  current_year.innerHTML = convertToDate(year);
 
   var time = 1000-(speed*9)-Math.pow(3,last_added);
-    if(time < 0){
-      time = 10;
-    }
-
-    if(years.indexOf(year) > -1){
-      /*var tID = Math.floor((years.indexOf(year)/years.length) * analysis.length);
-      if(tID != textID){
-          textID = tID;
-          analysisDiv.innerHTML = analysis[textID];
-      }*/
-      $.getJSON("used_data/"+year+".json",function(data){
-            var tdata;
-            var added = false
-            for(var i = 0; i < data.length; i++)
-            {
-                  added = true;
-                  last_added = 0;
-                  tdata = data[i];
-                  if(tdata != undefined){
-                    var x = tdata[2];
-                    var y=  tdata[3];
-                    var xi = x, yi = y;
-                    y +=81.5;
-                    y/=-145.68+81.5;
-                    x-=26.45;
-                    x/=60.55-28.5;
-                    if(x < 1 && x > 0 && y < 1 && y > 0){
-                      map.addUFOPercent(x,y);
-                }
-              }
-            }
-
-          });
-      }
-      setTimeout(update,time);
+  if(time < 0){
+    time = 10;
   }
+
+  if(years.indexOf(year) > -1){
+    $.getJSON("used_data/"+year+".json",function(data){
+      var tdata;
+      var added = false
+      for(var i = 0; i < data.length; i++){
+        added = true;
+        last_added = 0;
+        tdata = data[i];
+        if(tdata != undefined){
+          var x = tdata[2];
+          var y=  tdata[3];
+          var xi = x, yi = y;
+          //These constants are determined by the bounding box of the United states.
+          y +=81.5;
+          y/=-145.68+81.5;
+          x-=26.45;
+          x/=60.55-28.5;
+          if(x < 1 && x > 0 && y < 1 && y > 0){
+            map.addUFOPercent(x,y);
+          }
+        }
+      }
+
+    });
+  }
+  setTimeout(update,time);
+}
 
 $(window).resize(function(){
   map.resize();
@@ -149,14 +144,14 @@ $_timeline.mousemove(function(e){
   if(timeline.mousedown){
     var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
     year = years[Math.floor(years.length * x)];
-    currentYear.innerHTML = convertToDate(year);
+    current_year.innerHTML = convertToDate(year);
     updateTimeline();
   }
   });
 $_timeline.mousedown(function(e){
   var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
   year = years[Math.floor(years.length * x)];
-  currentYear.innerHTML = convertToDate(year);
+  current_year.innerHTML = convertToDate(year);
   updateTimeline();
   timeline.mousedown = true;
 });
@@ -168,27 +163,10 @@ $_timeline.mouseup(function(e){
 $_timeline.click(function(e){
     var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
     year = years[Math.floor(years.length * x)];
-    currentYear.innerHTML = convertToDate(year);
+    current_year.innerHTML = convertToDate(year);
 
     updateTimeline();
 });
-
-
-/*$("#plus").click(function(){
-  var val = parseInt(speed_controller.value);
-  val +=10;
-  val = val <= 100 ? val : 100;
-  speed_controller.value = val.toString();
-  $(speed_controller).trigger("change");
-});
-
-$("#minus").click(function(){
-  var val = parseInt(speed_controller.value);
-  val -=10;
-  val = val >= 0 ? val : 0;
-  speed_controller.value = val.toString();
-  $(speed_controller).trigger("change");
-});*/
 
 function updateTimeline(){
   if(time_lock)

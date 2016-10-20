@@ -5,12 +5,15 @@ function UFOs(container, options){
 
 	//scene elements, I wouldn't mess with these if you are trying to work with this
 	var scene, camera, renderer, map;
+
 	//Mess with these if you don't want a full screen visualization
 	var WIDTH  = window.innerWidth;
 	var HEIGHT = window.innerHeight;
+
 	//These are the map dimensions
 	var MAXWIDTH = 928, MAXHEIGHT = 592;
 	var cancelled = false;
+
 	//Variables required to create UFOs
 	var counter = 0;
 	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
@@ -209,47 +212,37 @@ function UFOs(container, options){
                 requestAnimationFrame(render);
 	}
 
-	//Call init and define public functions.
-	init(container);
-	moveScene(-50);
-	this.addUFO = addUFO;
-	this.resize = resize;
-	this.addUFOPercent = addUFOPercent;
-	this.resetStars = resetStars;
-	this.destroy = function(){renderer.domElement.parentNode.removeChild(renderer.domElement);}
-
 	//Mouse handlers
 	//This section handles mouse events for rotation.  I kept the variables down here so that they are easier to keep track of.
+	//This is all a closure, so these functions aren't available outside which is good.
+	function addMouseHandler() {
 
-	var mouseDown = false,mouseX,mouseY;
-	// kept all of these at the end so they're out of the way.
-	function onMouseMove(e) {
-	  e.preventDefault();
+			var mouseDown = false,mouseX,mouseY;
+			function onMouseMove(e) {
+			  e.preventDefault();
 
-	  var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
-	  mouseX = e.clientX;
-	  mouseY = e.clientY;
+			  var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
+			  mouseX = e.clientX;
+			  mouseY = e.clientY;
 
+			  if (mouseDown) {
+					rotateScene(deltaX);
+					moveScene(deltaY);
+			  }
+			}
 
-	  if (mouseDown) {
-			rotateScene(deltaX);
-			moveScene(deltaY);
-	    }
-	}
-
-	function onMouseUp(evt) {
+			function onMouseUp(evt) {
 				evt.preventDefault();
 				mouseDown = false;
-	}
+			}
 
-		function onMouseDown(evt){
+			function onMouseDown(evt){
 				evt.preventDefault();
 				mouseDown = true;
-		}
+			}
 
-	var touchX, touchY, touched = false,touched_first = false;
+			var touchX, touchY, touched = false,touched_first = false;
 
-	function addMouseHandler() {
 		this.addEventListener("touchstart", function(e){
 			if(!touched_first){
 				setInterval(touchHandler,20);
@@ -292,14 +285,28 @@ function UFOs(container, options){
 		this.addEventListener('mouseup', onMouseUp,false);
 
 	}
-		function rotateScene(deltaX){
-				map.rotation.z-= deltaX/100;
+
+	//This is outside of addMouseHandler because I want these to be publicly available for people to add custom controls if they so desire.
+	function rotateScene(deltaX){
+			map.rotation.z-= deltaX/100;
+	}
+	function moveScene(deltaY) {
+		if((camera.position.z > 300 || deltaY > 0) && (camera.position.z < 700 || deltaY < 0)){
+			camera.position.z += deltaY;
+			camera.position.y += deltaY*1.5;
+			camera.rotation.x-=deltaY/360;
 		}
-		function moveScene(deltaY) {
-				if((camera.position.z > 300 || deltaY > 0) && (camera.position.z < 700 || deltaY < 0)){
-					camera.position.z += deltaY;
-					camera.position.y += deltaY*1.5;
-					camera.rotation.x-=deltaY/360;
-				}
-		}
+	}
+
+
+		//Call init and define public functions.
+		init(container);
+		moveScene(-50);
+		this.addUFO = addUFO;
+		this.resize = resize;
+		this.addUFOPercent = addUFOPercent;
+		this.resetStars = resetStars;
+		this.rotateScene = rotateScene;
+		this.moveScene = moveScene;
+		this.destroy = function(){renderer.domElement.parentNode.removeChild(renderer.domElement);}
 }
