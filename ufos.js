@@ -276,6 +276,7 @@ function UFOs(container, options){
 		function wheelHandler(e){
 
 		}
+		
 		this.addEventListener("wheel",wheelHandler,false);
 
 		this.addEventListener('mousemove',onMouseMove,false);

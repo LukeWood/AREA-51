@@ -21,7 +21,7 @@ var ready = false;
 //Converts a number to a date in words:
 //19990101 -> January 1, 1999
 function convertToDate(year_t){
-        return months[parseInt(year_t.slice(-4).substring(0,2))]+" " + year_t.slice(-2)+", " +year_t.substring(0,4);
+        return months[parseInt(year_t.slice(-4).substring(0,2))-1]+" " + year_t.slice(-2)+", " +year_t.substring(0,4);
 }
 
 //Initialize our years object to the json my python script generated.  This way we don't send out ajax requests for nonexistent json later on.
