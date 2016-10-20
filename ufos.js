@@ -22,7 +22,7 @@ function UFOs(container, options){
 
 	//These handle the stars
 	var diskGeo = new THREE.CircleGeometry(7,40,40,40);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:.35});
+	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:1});
 
 	//cant just use this.speed because of the calls to bind later on.
 	var speed = 50;
@@ -36,6 +36,7 @@ function UFOs(container, options){
 			initRenderer();
 		renderer = window.renderer;
 		initMap();
+		renderer.domElement.className = "grabbable";
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
 		setTimeout(function(){addMouseHandler(renderer.domElement);},1000);
@@ -175,7 +176,7 @@ function UFOs(container, options){
 			return false;
 		}
 		else{
-			this.material.opacity-=.0003;
+			this.material.opacity-=.001;
 		}
 			return true;
 	}
@@ -240,13 +241,11 @@ function UFOs(container, options){
 
 	function onMouseUp(evt) {
 				evt.preventDefault();
-				renderer.domElement.style.cursor = "grab";
 				mouseDown = false;
 	}
 
 		function onMouseDown(evt){
 				evt.preventDefault();
-				renderer.domElement.style.cursor = "grabbing";
 				mouseDown = true;
 		}
 

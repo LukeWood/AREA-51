@@ -202,12 +202,7 @@ function updateTimeline(){
   time_lock = false;
 }
 document.getElementById("slider").value = 50;
-$("#slider").mousedown(function(){
-  this.style.cursor = "grabbing";
-});;
-$("#slider").mouseup(function(){
-    this.style.cursor="grab";
-});
+
 $('#slider').change(function(){
   speed = document.getElementById("slider").value;
   map.setSpeed(parseInt(speed));
