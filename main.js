@@ -147,14 +147,18 @@ $_timeline.mousemove(function(e){
     current_year.innerHTML = convertToDate(year);
     updateTimeline();
   }
-  });
+});
+
 $_timeline.mousedown(function(e){
   var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
   year = years[Math.floor(years.length * x)];
   current_year.innerHTML = convertToDate(year);
+  map.resetStars();
+
   updateTimeline();
   timeline.mousedown = true;
 });
+
 $_timeline.mouseup(function(e){
   map.resetStars();
   timeline.mousedown = false;
