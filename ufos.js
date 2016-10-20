@@ -39,7 +39,7 @@ function UFOs(container, options){
 		renderer.domElement.className = "grabbable";
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
-		setTimeout(function(){addMouseHandler(renderer.domElement);},1000);
+		setTimeout(function(){addMouseHandler.call(renderer.domElement);},1000);
 		render();
 	}
 
@@ -249,45 +249,51 @@ function UFOs(container, options){
 				mouseDown = true;
 		}
 
-			var touchX, touchY, touched = false,touched_first = false;
-	  function addMouseHandler(canvas) {
-				canvas.addEventListener("touchstart", function(e){
-					if(!touched_first){
-							setInterval(touchHandler,20);
-							touched_first = true;
-					}
-					touched = true;
-						touchX= e.touches[0].clientX;
-						touchY = e.touches[0].clientY;
-						e.preventDefault();
-				}, true);
+	var touchX, touchY, touched = false,touched_first = false;
+	
+	function addMouseHandler() {
+		this.addEventListener("touchstart", function(e){
+			if(!touched_first){
+				setInterval(touchHandler,20);
+				touched_first = true;
+			}
+			touched = true;
+			touchX= e.touches[0].clientX;
+			touchY = e.touches[0].clientY;
+			e.preventDefault();
+		}, true);
 
-				canvas.addEventListener("touchmove",function(e){
-						touchX= e.touches[0].clientX;
-						touchY = e.touches[0].clientY;
-						e.preventDefault();
-				});
+		this.addEventListener("touchmove",function(e){
+			touchX= e.touches[0].clientX;
+			touchY = e.touches[0].clientY;
+			e.preventDefault();
+		});
 
-			  canvas.addEventListener("touchend", function(e){
-						touched = false;
-						e.preventDefault();
-				}, true);
+		this.addEventListener("touchend", function(e){
+			touched = false;
+			e.preventDefault();
+		}, true);
 
-				function touchHandler(){
-					if(touched){
-						rotateScene(5 * (touchX - (WIDTH/2))/(WIDTH/2));
-
-						moveScene(-5 * (touchY - HEIGHT/2)/(HEIGHT/2));
-					}
-					}
-
-				canvas.addEventListener('mousemove',onMouseMove,false);
-
-		    canvas.addEventListener('mousedown', onMouseDown,false);
-
-		    canvas.addEventListener('mouseup', onMouseUp,false);
-
+		function touchHandler(){
+			if(touched){
+				rotateScene(5 * (touchX - (WIDTH/2))/(WIDTH/2));
+				moveScene(-5 * (touchY - HEIGHT/2)/(HEIGHT/2));
+			}
 		}
+		
+		//TODO implement zoom
+		function wheelHandler(e){
+			
+		}
+		this.addEventListener("wheel",wheelHandler,false);
+		
+		this.addEventListener('mousemove',onMouseMove,false);
+
+		this.addEventListener('mousedown', onMouseDown,false);
+
+		this.addEventListener('mouseup', onMouseUp,false);
+
+	}
 		function rotateScene(deltaX){
 				map.rotation.z-= deltaX/100;
 		}

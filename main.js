@@ -37,7 +37,7 @@ $("#cover").mousedown(function(){
     $("#cover").unbind("mousedown");
     }
     else{
-      $(window).onload(function(){
+      $(window).load(function(){
         updateTimeline();
         $("#cover").fadeOut();
         setTimeout(update,500);
@@ -76,13 +76,14 @@ function incrementYear(){
     }
 }
 //Initialize analysis
+/*
 var analysis = ["In early May 1995 there are almost no sightings.  However, by late May 1995 there are almost daily sightings in New Mexico",
                 "The center of the country has a much higher density of sightings",
                 "As time goes on, UFO sightings appear at an increasingly rapid rate.",
                 "There are many clusters of sightings.  People seem to copy those who live in similar areas to them."];
 var analysisDiv = document.getElementById("analysis");
 var textID = 0;
-analysisDiv.innerHTML = analysis[textID];
+analysisDiv.innerHTML = analysis[textID];*/
 
 function update(){
   incrementYear();
@@ -96,11 +97,11 @@ function update(){
     }
 
     if(years.indexOf(year) > -1){
-      var tID = Math.floor((years.indexOf(year)/years.length) * analysis.length);
+      /*var tID = Math.floor((years.indexOf(year)/years.length) * analysis.length);
       if(tID != textID){
           textID = tID;
           analysisDiv.innerHTML = analysis[textID];
-      }
+      }*/
       $.getJSON("used_data/"+year+".json",function(data){
             var tdata;
             var added = false
