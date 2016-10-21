@@ -215,16 +215,7 @@ $_timeline.mouseout(function(e){
     }
 });
 
-$_timeline.click(function(e){
-    var x = (e.pageX - $_timeline.offset().left)/$_timeline.width();
-    year = avail_years[Math.floor(avail_years.length * x)];
-    if(!(year)){
-        year = avail_years[avail_years.length-1];
-    }
-    current_year.innerHTML = convertToDate(year);
 
-    updateTimeline();
-});
 
 function updateTimeline(){
   if(time_lock)
