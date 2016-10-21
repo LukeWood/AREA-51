@@ -106,11 +106,21 @@ function UFOs(container, options){
 		ufo.position.set(-928/2 +x,592/2 -y,400);
 		loopWrapper(animateUFO.bind(ufo));
 	}
-
 	//Adds a ufo at a certain percentage of the way across the screen
 	function addUFOPercent(x,y){
 		addUFO(x*MAXWIDTH, y*MAXHEIGHT);
 	}
+
+	function addPoint(x,y){
+			var disk = new THREE.Mesh(diskGeo,diskMaterial.clone());
+			disk.material.opacity=.1;
+			map.add(disk);
+			disk.position.set(-928/2 +x,592/2 -y,3);
+	}
+	function addPointPercent(x,y){
+			addPoint(x*MAXWIDTH, y*MAXHEIGHT);
+	}
+
 
 	//loops for animation until the function returns false.
 	function loopWrapper(callback){
@@ -174,8 +184,8 @@ function UFOs(container, options){
 
 	function fadeOut(){
 
-		if(this.material.opacity <= .01){
-			map.remove(this);
+		if(this.material.opacity <= .1){
+			//map.remove(this);
 			return false;
 		}
 		else{
@@ -205,7 +215,7 @@ function UFOs(container, options){
 	}
 
 	function render(){
-                renderer.render(scene, camera);
+        renderer.render(scene, camera);
                 requestAnimationFrame(render);
 	}
 
@@ -301,8 +311,10 @@ function UFOs(container, options){
 		init(container);
 		moveScene(-50);
 		this.addUFO = addUFO;
-		this.resize = resize;
 		this.addUFOPercent = addUFOPercent;
+		this.addPoint = addPoint;
+		this.addPointPercent = addPointPercent;
+		this.resize = resize;
 		this.resetStars = resetStars;
 		this.rotateScene = rotateScene;
 		this.moveScene = moveScene;
