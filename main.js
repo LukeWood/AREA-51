@@ -192,6 +192,7 @@ $_timeline.mousedown(function(e){
   }
   current_year.innerHTML = convertToDate(year);
   map.resetStars();
+  redoMap();
   updateTimeline();
   timeline.mouse_down = true;
 
@@ -220,7 +221,7 @@ $_timeline.click(function(e){
         year = avail_years[avail_years.length-1];
     }
     current_year.innerHTML = convertToDate(year);
-    
+
     updateTimeline();
 });
 
