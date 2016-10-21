@@ -195,7 +195,6 @@ $_timeline.mousedown(function(e){
   redoMap();
   updateTimeline();
   timeline.mouse_down = true;
-
 });
 
 $_timeline.mouseup(function(e){
@@ -203,6 +202,7 @@ $_timeline.mouseup(function(e){
   map.resetStars();
   timeline.mouse_down = false;
   redoMap();
+  running = true;
 });
 
 $_timeline.mouseout(function(e){
@@ -211,6 +211,7 @@ $_timeline.mouseout(function(e){
         redoMap();
         update_lock = false;
         timeline.mouse_down = false;
+        running = true;
     }
 });
 
