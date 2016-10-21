@@ -194,7 +194,6 @@ $_timeline.mousedown(function(e){
   map.resetStars();
   updateTimeline();
   timeline.mouse_down = true;
-  redoMap();
 
 });
 
@@ -203,16 +202,15 @@ $_timeline.mouseup(function(e){
   map.resetStars();
   timeline.mouse_down = false;
   redoMap();
-
 });
 
 $_timeline.mouseout(function(e){
     if(timeline.mouse_down){
         map.resetStars();
+        redoMap();
         update_lock = false;
         timeline.mouse_down = false;
     }
-    redoMap();
 });
 
 $_timeline.click(function(e){
@@ -222,7 +220,7 @@ $_timeline.click(function(e){
         year = avail_years[avail_years.length-1];
     }
     current_year.innerHTML = convertToDate(year);
-
+    
     updateTimeline();
 });
 
