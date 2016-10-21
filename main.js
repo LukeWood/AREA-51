@@ -93,7 +93,7 @@ function redoMap(){
         addYear(avail_years[i],true);
         i++;
     }
-    running = true;
+
 }
 
 function addYear(year,justpoint){
@@ -202,7 +202,10 @@ $_timeline.mouseup(function(e){
   map.resetStars();
   timeline.mouse_down = false;
   redoMap();
-  running = true;
+    if(!running){
+      running = true;
+      update();
+    }
 });
 
 $_timeline.mouseout(function(e){
@@ -211,7 +214,10 @@ $_timeline.mouseout(function(e){
         redoMap();
         update_lock = false;
         timeline.mouse_down = false;
-        running = true;
+        if(!running){
+          running = true;
+          update();
+        }
     }
 });
 
