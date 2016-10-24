@@ -214,31 +214,32 @@ function UFOs(container, options){
 	//This is all a closure, so these functions aren't available outside which is good.
 	function addMouseHandler() {
 
-			var mouseDown = false,mouseX,mouseY;
-			function onMouseMove(e) {
-			  e.preventDefault();
+		var mouseDown = false,mouseX,mouseY;
+		function onMouseMove(e) {
+			e.preventDefault();
 
-			  var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
-			  mouseX = e.clientX;
-			  mouseY = e.clientY;
+			var deltaX = e.clientX - mouseX, deltaY = e.clientY - mouseY;
+			mouseX = e.clientX;
+			mouseY = e.clientY;
 
-			  if (mouseDown) {
-					rotateScene(deltaX);
-					moveScene(deltaY);
-			  }
+			if (mouseDown) {
+				rotateScene(deltaX);
+				moveScene(deltaY);
 			}
+		}
 
-			function onMouseUp(evt) {
-				evt.preventDefault();
-				mouseDown = false;
-			}
+		function onMouseUp(evt) {
+			evt.preventDefault();
+			mouseDown = false;
+		}
 
-			function onMouseDown(evt){
-				evt.preventDefault();
-				mouseDown = true;
-			}
+		function onMouseDown(evt){
+			evt.preventDefault();
+			mouseDown = true;
+		}
 
-			var touchX, touchY, touched = false,touched_first = false;
+		//Touch variables
+		var touchX, touchY, touched = false,touched_first = false;
 
 		this.addEventListener("touchstart", function(e){
 			if(!touched_first){
@@ -269,17 +270,8 @@ function UFOs(container, options){
 			}
 		}
 
-		//TODO implement zoom
-		function wheelHandler(e){
-
-		}
-
-		this.addEventListener("wheel",wheelHandler,false);
-
 		this.addEventListener('mousemove',onMouseMove,false);
-
 		this.addEventListener('mousedown', onMouseDown,false);
-
 		this.addEventListener('mouseup', onMouseUp,false);
 
 	}
