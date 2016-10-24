@@ -6,26 +6,16 @@ function UFOs(container, options){
 	//scene elements, I wouldn't mess with these if you are trying to work with this
 	var scene, camera, renderer, map;
 
-	//Mess with these if you don't want a full screen visualization
-	var WIDTH  = window.innerWidth;
-	var HEIGHT = window.innerHeight;
+	//Size parameters.
+	var WIDTH = window.innerWidth,HEIGHT = window.innerHeight,MAXWIDTH = 928, MAXHEIGHT = 592;
 
-	//These are the map dimensions
-	var MAXWIDTH = 928, MAXHEIGHT = 592;
-	var cancelled = false;
+	var cancelled = false,counter = 0;
 
-	//Variables required to create UFOs
-	var counter = 0;
-	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50);
-	var ufo_geo2 = new THREE.SphereGeometry(14,32,32);
-	var ufo_material = new THREE.MeshPhongMaterial({color: 0xcccccc,reflectivity:.4});
-	var ufo_material2 = new THREE.MeshPhongMaterial({color: 0xcccccc,reflectivity:.4});
+	//UFO Geometries
+	var ufo_geo1 = new THREE.TorusGeometry(17,3,40,50), ufo_geo2 = new THREE.SphereGeometry(14,32,32),ufo_material = new THREE.MeshPhongMaterial({color: 0xcccccc,reflectivity:.4}),ufo_material2 = new THREE.MeshPhongMaterial({color: 0xcccccc,reflectivity:.4});
 
-	var ival;//interval val for touch listeners
-
-	//These handle the stars
-	var diskGeo = new THREE.CircleGeometry(7,40,40,40);
-	var diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:1});
+	//These handle the discs that mark the sightings
+	var diskGeo = new THREE.CircleGeometry(7,40,40,40),diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:1});
 
 	//cant just use this.speed because of the calls to bind later on.
 	var speed = 50;
@@ -95,11 +85,11 @@ function UFOs(container, options){
 			return;
 		}
 		counter++;
-      		var ufo = new THREE.Mesh(ufo_geo1,ufo_material);
+    var ufo = new THREE.Mesh(ufo_geo1,ufo_material);
 		var sub_ufo = new THREE.Mesh(ufo_geo2,ufo_material2);
 		ufo.add(sub_ufo);
-      		ufo.castShadow = true;
-      		ufo.receiveShadow = true;
+    ufo.castShadow = true;
+    ufo.receiveShadow = true;
 		ufo.name = counter.toString();
 		ufo.isUFO = true;
 		map.add(ufo);
