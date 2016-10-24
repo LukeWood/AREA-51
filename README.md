@@ -2,7 +2,7 @@
 A visualization of the UFO sightings in the United States.
 
 # Employers
-Please see [js/ufos.js](ufos.js) as a code sample.  This javascript file displays my knowledge of javascript practices and functionality.
+Please see [ufos.js](js/ufos.js) as a code sample.  This javascript file displays my knowledge of javascript practices and functionality.
 
 # Dataset
 
