@@ -290,15 +290,15 @@ function UFOs(container, options){
 
 
 		//Call init and define public functions.
-		init(container);
-		moveScene(-50);
-		this.addUFO = addUFO;
-		this.addUFOPercent = addUFOPercent;
-		this.addPoint = addPoint;
-		this.addPointPercent = addPointPercent;
-		this.resize = resize;
-		this.resetStars = resetStars;
-		this.rotateScene = rotateScene;
-		this.moveScene = moveScene;
-		this.destroy = function(){renderer.domElement.parentNode.removeChild(renderer.domElement);}
+	init(container);
+	moveScene(-50);
+	this.addUFO = addUFO;
+	this.addUFOPercent = addUFOPercent;
+	this.addPoint = addPoint;
+	this.addPointPercent = addPointPercent;
+	this.resize = resize;
+	this.resetStars = resetStars;
+	this.rotateScene = rotateScene;
+	this.moveScene = moveScene;
+	this.destroy = function(){renderer.domElement.parentNode.removeChild(renderer.domElement);}
 }
