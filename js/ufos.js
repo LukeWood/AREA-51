@@ -164,12 +164,12 @@ function UFOs(container, options){
 		return true;
 	}
 	function castDown(){
-			this.position.z-=2;
-			if(this.position.z <=3){
-				map.remove(this);
-				return false;
-			}
-			return true;
+		this.position.z-=2;
+		if(this.position.z <=3){
+			map.remove(this);
+			return false;
+		}
+		return true;
 	}
 
 	function fadeOut(){
