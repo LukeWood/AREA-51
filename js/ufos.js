@@ -102,24 +102,24 @@ function UFOs(container, options){
 	}
 
 	function addPoint(x,y){
-			var disk = new THREE.Mesh(diskGeo,diskMaterial.clone());
-			disk.material.opacity=.1;
-			map.add(disk);
-			disk.position.set(-928/2 +x,592/2 -y,3);
+		var disk = new THREE.Mesh(diskGeo,diskMaterial.clone());
+		disk.material.opacity=.1;
+		map.add(disk);
+		disk.position.set(-928/2 +x,592/2 -y,3);
 	}
 	function addPointPercent(x,y){
-			addPoint(x*MAXWIDTH, y*MAXHEIGHT);
+		addPoint(x*MAXWIDTH, y*MAXHEIGHT);
 	}
 
 
 	//loops for animation until the function returns false.
 	function loopWrapper(callback){
-			if(cancelled){
-					return;
-			}
-			if(callback()){
-					setTimeout(function(){loopWrapper(callback);},Math.floor(20*((150-(speed))/150)));
-			}
+		if(cancelled){
+			return;
+		}
+		if(callback()){
+			setTimeout(function(){loopWrapper(callback);},Math.floor(20*((150-(speed))/150)));
+		}
 	}
 
 	//transitions a ufo in.
