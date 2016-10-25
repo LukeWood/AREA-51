@@ -173,25 +173,24 @@ function UFOs(container, options){
 	}
 
 	function fadeOut(){
-
 		if(this.material.opacity <= .1){
-			//map.remove(this);
+		//map.remove(this);
 			return false;
 		}
 		else{
 			this.material.opacity-=.001;
 		}
-			return true;
+		return true;
 	}
 
 	//fly away and remove.
 	function remove(){
-				this.position.z+=5;
-				if(this.position.z >=700){
-					map.remove(this);
-					return false;
-				}
-				return true;
+		this.position.z+=5;
+		if(this.position.z >=700){
+			map.remove(this);
+			return false;
+		}
+		return true;
 	}
 
 	//This removes all children.
@@ -205,8 +204,8 @@ function UFOs(container, options){
 	}
 
 	function render(){
-        renderer.render(scene, camera);
-                requestAnimationFrame(render);
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
 	}
 
 	//Mouse handlers
