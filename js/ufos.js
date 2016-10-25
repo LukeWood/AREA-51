@@ -85,11 +85,11 @@ function UFOs(container, options){
 			return;
 		}
 		counter++;
-    var ufo = new THREE.Mesh(ufo_geo1,ufo_material);
+		var ufo = new THREE.Mesh(ufo_geo1,ufo_material);
 		var sub_ufo = new THREE.Mesh(ufo_geo2,ufo_material2);
 		ufo.add(sub_ufo);
-    ufo.castShadow = true;
-    ufo.receiveShadow = true;
+		ufo.castShadow = true;
+		ufo.receiveShadow = true;
 		ufo.name = counter.toString();
 		ufo.isUFO = true;
 		map.add(ufo);
