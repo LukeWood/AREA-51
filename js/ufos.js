@@ -204,8 +204,8 @@ function UFOs(container, options){
 	}
 
 	function render(){
-    renderer.render(scene, camera);
-    requestAnimationFrame(render);
+		renderer.render(scene, camera);
+		requestAnimationFrame(render);
 	}
 
 	//Mouse handlers
