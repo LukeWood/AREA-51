@@ -145,23 +145,23 @@ function UFOs(container, options){
 
 	//casts stars onto the map.
 	function castBeam(){
-				this.counter++;
-				if(this.counter > 5){
-						var disk = new THREE.Mesh(diskGeo,diskMaterial);
-						disk.position.copy(this.ufo.position);
-						map.add(disk);
-						loopWrapper(castDown.bind(disk));
-						this.counter = 0;
-				}
+		this.counter++;
+		if(this.counter > 5){
+			var disk = new THREE.Mesh(diskGeo,diskMaterial);
+			disk.position.copy(this.ufo.position);
+			map.add(disk);
+			loopWrapper(castDown.bind(disk));
+			this.counter = 0;
+		}
 
-				this.disk.position.z-=2;
-				if(this.disk.position.z <= 3){
-						var fun = remove.bind(this.ufo);
-						setTimeout(function(){loopWrapper(fun);},Math.floor(200*(150-speed)/150));
-						loopWrapper(fadeOut.bind(this.disk));
-						return false;
-				}
-				return true;
+		this.disk.position.z-=2;
+		if(this.disk.position.z <= 3){
+			var fun = remove.bind(this.ufo);
+			setTimeout(function(){loopWrapper(fun);},Math.floor(200*(150-speed)/150));
+			loopWrapper(fadeOut.bind(this.disk));
+			return false;
+		}
+		return true;
 	}
 	function castDown(){
 			this.position.z-=2;
