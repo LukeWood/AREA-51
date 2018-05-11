@@ -1,6 +1,6 @@
 import {convertToDateString} from './date_handling';
 import {UFO_Map} from './ufos';
-import {redraw_timeline} from './timeline';
+import {redraw_timeline, set_date} from './timeline';
 
 //the ufo map itself
 let map = new UFO_Map(document);
@@ -15,8 +15,8 @@ Promise.all([ufo_data_promise, year_promise])
 
 // These are magic numbers that correctly map to the us border on the image I used lol
 function map_to_percentage_basis(x, y) {
-  y+=81.5;
-  y/=-145.68+81.5;
+  y = y + 60.5
+  y/=(-145.68+60.5);
   x-=26.45;
   x/=60.55-28.5;
   return {x: x, y: y}
@@ -32,23 +32,22 @@ function add_ufos_for_year(data) {
 }
 
 function curry_update(ufo_data, years_available) {
-
   function curried_update(year_index) {
+    if(year_index > years_available.length) {return}
     let current_year = years_available[year_index];
     let data = ufo_data[current_year]
     if(data) {
       add_ufos_for_year(data);
     }
+    set_date(current_year)
     redraw_timeline(year_index/years_available.length);
-    setTimeout(() => curried_update(year_index+1), 100);
+    setTimeout(() => curried_update(year_index+1), 500);
   }
+  return curried_update;
 
-  return curried_update
 }
 
 function start(ufo_data, years_available) {
-  document.getElementById("firstYear").innerHTML = convertToDateString(years_available[0]);
-  document.getElementById("lastYear").innerHTML = convertToDateString(years_available[avail_years.length-1]);
   let update_function = curry_update(ufo_data, years_available);
   update_function(0);
 }

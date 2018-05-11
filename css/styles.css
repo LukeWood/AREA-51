@@ -64,34 +64,36 @@ option:before{
 	top:0;
 	left:0;
 }
-#firstYear{
+
+.year {
 	position:absolute;
-	top:54px;
-	left:4px;
+	top:.6rem;
+	pointer-events: none;
 	color:white;
-	font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;
+	font-size: 2rem;
+}
+
+#firstYear{
+	left:.5rem;
 }
 #lastYear{
-		position:absolute;
-		right:4px;
-		top:54px;
-		color:white;
-		font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;
+	right:.5rem;
 }
+
 #currentYear{
 	margin: .5rem;
 	color:white;
 	pointer-events:none;
 	font-size: 2rem;
 }
+
 .grabbable {
-  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: move;
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
 }
 
- /* (Optional) Apply a "closed-hand" cursor during drag operation. */
 .grabbable:active {
     cursor: grabbing;
     cursor: -moz-grabbing;

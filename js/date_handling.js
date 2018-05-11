@@ -16,13 +16,16 @@ function next_date(day, month, year) {
 
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-//19990101 -> January 1, 1999
-function convertToDateString(date){
-  let month = months[parseInt(date.slice(-4).substring(0,2))-1];
-  let day = date.slice(-2);
-  let year = date.substring(0,4);
-  return `${month} ${day}, ${year}`;
+function toTextDate(day, month, year) {
+  return `${months[month-1]} ${day}, ${year}`;
 }
 
+//19990101 -> January 1, 1999
+function convertToDateString(date){
+  let month = parseInt(date.slice(-4).substring(0,2))
+  let day = date.slice(-2);
+  let year = date.substring(0,4);
+  return toTextDate(day, month, year)
+}
 
-export {next_date, convertToDateString}
+export {next_date, convertToDateString, toTextDate}
