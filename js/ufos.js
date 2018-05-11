@@ -1,7 +1,7 @@
 "use strict";
 
 //Options still needs to be implemented.
-function UFOs(container, options){
+function UFO_Map(container){
 
 	//scene elements, I wouldn't mess with these if you are trying to work with this
 	var scene, camera, renderer, map;
@@ -291,13 +291,15 @@ function UFOs(container, options){
 		//Call init and define public functions.
 	init(container);
 	moveScene(-50);
-	this.addUFO = addUFO;
-	this.addUFOPercent = addUFOPercent;
-	this.addPoint = addPoint;
-	this.addPointPercent = addPointPercent;
-	this.resize = resize;
-	this.resetStars = resetStars;
-	this.rotateScene = rotateScene;
-	this.moveScene = moveScene;
+	this.addUFO = addUFO.bind(this);
+	this.addUFOPercent = addUFOPercent.bind(this);
+	this.addPoint = addPoint.bind(this);
+	this.addPointPercent = addPointPercent.bind(this);
+	this.resize = resize.bind(this);
+	this.resetStars = resetStars.bind(this);
+	this.rotateScene = rotateScene.bind(this);
+	this.moveScene = moveScene.bind(this);
 	this.destroy = function(){renderer.domElement.parentNode.removeChild(renderer.domElement);}
 }
+
+export {UFO_Map}
