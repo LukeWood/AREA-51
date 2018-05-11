@@ -5,7 +5,7 @@
                 <link rel="icon" href="img/alien.gif" />
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	 	<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.min.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 		<link href="css/styles.css" rel="stylesheet">
 		<script src="libs/three.min.js"></script>
@@ -13,26 +13,22 @@
 	<body>
 		<div id = "cover">
 			<center>
-				<h1 style="pointer-events: none; margin: 65px 25px 25px; font-size: 200px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Area 51</h1>
-				<h2 style="pointer-events: none; margin: 65px 25px 25px; font-size: 50px; font-family: 'Orbitron',sans-serif; font-weight: 200;">A Visualizations of UFO sightings </h2>
-				<h2 style="pointer-events: none; margin: 65px 25px 25px; font-size: 40px; font-family: 'Orbitron',sans-serif; font-weight: 200;"><br>Drag to Rotate the Camera<br>Click Anywhere to Start</h2>
-				<h3 style="pointer-events: none; margin: 65px 25px 25px; font-size: 30px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Copyright Luke Wood</h3>
-
+				<h1>Area 51</h1>
+				<div class="attach-center">
+					<h2>A Visualizations of UFO sightings</h2>
+					<br>
+					<h2>Drag to Rotate the Camera<br>Click Anywhere to Start</h2>
+				</div>
+				<div class="attach-bottom"><center><h2>Copyright Luke Wood</h2></center></div>
 			</center>
 		</div>
 
 		<canvas id = "timeline"></canvas>
-		<div style="position:absolute;left:10px; top:90px; background-color:white; padding:5px; border-radius:5px;">
-			<center><h2 style="pointer-events: none; font-size: 20px; font-family: 'Orbitron',sans-serif; font-weight: 200;">Speed:</h2></center>
-			<input id="slider" type="range" class="grabbable" style="cursor:grab;">
-		</input>
 		<center style="width:100%;">
 		<!--	<button style="font-size:20px; width:40%;" id="minus">-</button>
 			<button style="font-size:20px; width:40%;" id="plus">+</button> -->
 		</center>
 		</div>
-
-		<button style="position:absolute; pointer-events:visiblePainted; right:10px;top:90px;background-color:white;padding:5px; border-radius:5px; font-family:'Orbitron', sans-serif; font-weight:200; font-size: 30px;" id="restart">Restart</button>
 
 		<div style="pointer-events: none; " id = "firstYear"></div>
 		<div style="pointer-events: none; " id = "lastYear"></div>

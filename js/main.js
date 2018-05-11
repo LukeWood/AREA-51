@@ -13,7 +13,6 @@ var speed = 0;
 var last_added = 0;
 var running = true;
 var current_year = document.getElementById("currentYear");
-var speed_controller = document.getElementById("slider");
 var first_year = document.getElementById("firstYear");
 var last_year = document.getElementById("lastYear");
 
@@ -22,26 +21,27 @@ var avail_years = [];
 //Converts a number to a date in words:
 //19990101 -> January 1, 1999
 function convertToDate(year_t){
-        return months[parseInt(year_t.slice(-4).substring(0,2))-1]+" " + year_t.slice(-2)+", " +year_t.substring(0,4);
+    return months[parseInt(year_t.slice(-4).substring(0,2))-1]+" " + year_t.slice(-2)+", " +year_t.substring(0,4);
 }
 
-//Initialize our years object to the json my python script generated.  This way we don't send out ajax requests for nonexistent json later on.
-$.getJSON("combined/out.json",function(data){
-    years = data;
-    $.getJSON("combined/years.json", function(data2){
-      avail_years = data2;
-      year_max = parseInt(avail_years[avail_years.length-1]);
-      year_min = parseInt(avail_years[0]);
-      year = avail_years[0];
-      year_span = year_max-year_min;
-      first_year.innerHTML = convertToDate(avail_years[0]);
-      last_year.innerHTML = convertToDate(avail_years[avail_years.length-1]);
-      ready = true;
-    });
-});
-
+fetch("combined/out.json")
+  .then(response => response.json())
+  .then(function(data){
+      years = data;
+      fetch("combined/years.json")
+      .then(response => response.json())
+      .then(function(avail_years){
+        year_max = parseInt(avail_years[avail_years.length-1]);
+        year_min = parseInt(avail_years[0]);
+        year = avail_years[0];
+        year_span = year_max-year_min;
+        first_year.innerHTML = convertToDate(avail_years[0]);
+        last_year.innerHTML = convertToDate(avail_years[avail_years.length-1]);
+        ready = true;
+      })
+  })
 //Remove the cover to from index.html so they can see the visualization
-$("#cover").mousedown(function(){
+document.getElementById("cover").addEventListener("mousedown", function(){
     if(ready){
     updateTimeline();
     $("#cover").fadeOut();
@@ -57,6 +57,7 @@ $("#cover").mousedown(function(){
       });
     }
 });
+
 //this increments an integer as if it is incrementing months in the year.
 var days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
 function incrementYear(){
@@ -155,15 +156,6 @@ $(window).resize(function(){
   map.resize();
 });
 
-$("#restart").mousedown(function(){
-	year =avail_years[0];
-  map.resetStars();
-  if(!running){
-      running = true;
-      update();
-  }
-});
-
 var timeline = document.getElementById("timeline");
 var $_timeline = $(timeline);
 var ctx = timeline.getContext("2d");
@@ -235,9 +227,3 @@ function updateTimeline(){
   ctx.fillRect(0,0,timeline.width*percentDone,timeline.height);
   time_lock = false;
 }
-document.getElementById("slider").value = 50;
-
-$('#slider').change(function(){
-  speed = document.getElementById("slider").value;
-  map.setSpeed(parseInt(speed));
-});
