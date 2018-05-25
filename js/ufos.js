@@ -18,7 +18,7 @@ function UFO_Map(container){
 	var diskGeo = new THREE.CircleGeometry(7,40,40,40),diskMaterial = new THREE.MeshBasicMaterial({color: 0xff0000, transparent:true,opacity:1});
 
 	//cant just use this.speed because of the calls to bind later on.
-	var speed = 50;
+	var speed = 30;
 	this.setSpeed = function(spd){speed = spd;};
 
 	//SECTION INITIALIZATION
@@ -32,7 +32,7 @@ function UFO_Map(container){
 		renderer.domElement.className = "grabbable";
 		container.body.appendChild(renderer.domElement);
 		renderer.domElement.style.cursor="grab";
-		setTimeout(function(){addMouseHandler.call(renderer.domElement);},1000);
+		addMouseHandler.call(renderer.domElement);
 		render();
 	}
 
