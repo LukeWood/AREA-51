@@ -67,8 +67,6 @@ function UFO_Map(container){
 
 		var texture = loader.load("img/usa.jpg");
 		var material = new THREE.MeshPhongMaterial({map:texture});
-		material.bumpMap =texture;
-		material.bumpScale = 22;
 
 		map = new THREE.Mesh(new THREE.CubeGeometry(MAXWIDTH,MAXHEIGHT, 2), material);
 		var light = new THREE.DirectionalLight( 0xffffff );
